@@ -2,7 +2,7 @@
 # Script permettant la modification d'utilisateur sur Asterisk
 # 
 
-while true;
+while :
 	do
 	clear
 cat<<EOF
@@ -25,7 +25,7 @@ Veuillez choisir votre option
 EOF
 
 	read -n1 -s choice1
-	case $choice1 in
+	case "$choice1" in
 	
 		#Ajout d'un utilisateur
 		"1")
@@ -51,7 +51,7 @@ Veuillez choisir le profil de l'utilisateur à ajouter
 
 EOF
 			read -n1 -s profileChoice
-			case $profileChoice in
+			case "$profileChoice" in
 			#Profil commercial
 			"1") 
 				customPassword "com"
