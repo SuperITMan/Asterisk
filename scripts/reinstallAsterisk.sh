@@ -6,11 +6,11 @@ backupDir="/etc/asterisk/backupConf"
 tempBackupDir="/tmp/backupAsterisk"
 
 /etc/init.d/asterisk stop
-sleep 3
+sleep 2
 
 #Sauvegarde des fichiers de confIax
 echo "Sauvegarde des fichiers de configuration dans $tempBackupDir"
-sleep 3
+sleep 2
 mkdir "$tempBackupDir"
 
 cp "$asteriskDir"/sip.conf "$tempBackupDir"/sip.conf
@@ -22,7 +22,7 @@ echo "Sauvegarde des fichiers de configuration dans $tempBackupDir : fait!"
 echo "Desinstallation d'Asterisk"
 apt-get -q=3 remove --purge asterisk -y
 echo "Desinstallation d'Asterisk : fait!"
-sleep 3
+sleep 2
 
 read -p "Desirez-vous recreer les fichiers de configuration d'Asterisk ? ([O]ui ou [N]on) : " -n1 newInstall
 while [ "$newInstall" != "n" ] && [ "$newInstall" != "N" ] && [ "$newInstall" != "o" ] && [ "$newInstall" != "O" ];
@@ -55,7 +55,9 @@ fi
 
 echo "Copie des fichiers de sauvegarde dans $backupDir"
 
-if [ -d "$backupDir" ]; then mkdir "$backupDir"
+if [ -d "$backupDir" ]
+then 
+	mkdir "$backupDir"
 fi
 
 cp "$tempBackupDir"/sip.conf "$backupDir"/sip.conf
