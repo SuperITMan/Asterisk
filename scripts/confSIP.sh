@@ -10,9 +10,11 @@ mv /etc/asterisk/sip.conf /etc/asterisk/sip.conf.old
 isNat="yyy"
 while [ $isNat != "n" ] && [ $isNat != "N" ] && [ $isNat != "o" ] && [ $isNat != "O" ];
 do
-read -p "Le serveur Asterisk se trouve-t-il derrière un NAT ? ([O]ui ou [Non]) : " -n1 isNat
+read -p "Le serveur Asterisk se trouve-t-il derriere un NAT ? ([O]ui ou [Non]) : " -n1 isNat
 #read isNat
 done
+
+echo ""
 
 if [ $isNat == "O" ] || [ $isNat == "o" ] 
 then 
@@ -21,14 +23,14 @@ else
 isNat="no"
 fi
 
-curl ident.me
+curl -s ident.me
 externIp=$?
 bindport="3060"
 
 touch /etc/asterisk/sip.conf
 
 #Profil "general"
-printf "[general]\ndefaultexpirey=1800			;Default duration (in seconds) of incoming/outgoing registration.\nqualify=yes			; Check if client is reachable. If yes, the checks occur every 60 seconds.\ndtmfmode=RFC2833			; specifies a different RTP packet format for DTMF Digits, to reduce transmitted data.\ndisallow=all			; disallows all codecs, required before specifying allowed codecs.\nallow=gsm			; Allow GSM codec.\nallow=ulaw			; Allow G711 codec.\nnat="$isNat"			; There is a NAT between Asterisk Server & Client.\ncanreinvite=no			; stops the sending of the (re)INVITEs once the call is established.\nexternip="$externIp"			; External IP of Server (if Public IP is static).\nbindport="$bindport"			; UDP Port to bind to (listen on).\ncontext=incoming			; Context for default calls.\n\n"  >> /etc/asterisk/sip.conf
+printf "[general]\ndefaultexpirey=1800		;Default duration (in seconds) of incoming/outgoing registration.\nqualify=yes			; Check if client is reachable. If yes, the checks occur every 60 seconds.\ndtmfmode=RFC2833		; specifies a different RTP packet format for DTMF Digits, to reduce transmitted data.\ndisallow=all			; disallows all codecs, required before specifying allowed codecs.\nallow=gsm			; Allow GSM codec.\nallow=ulaw			; Allow G711 codec.\nnat="$isNat"				; There is a NAT between Asterisk Server & Client.\ncanreinvite=no			; stops the sending of the (re)INVITEs once the call is established.\nexternip="$externIp"			; External IP of Server (if Public IP is static).\nbindport="$bindport"			; UDP Port to bind to (listen on).\ncontext=incoming		; Context for default calls.\n\n"  >> /etc/asterisk/sip.conf
 
 #Infos sur les différents éléments
 printf ";--\ntype : friend (User can make & receive phone calls)\ncallerid, fullname : Self-explained\nusername, secret : Login credentials\nhasvoicemail, vmsecret : Has voicemail box, voicemail password\ncontext : dialplan for registered user\nlanguage : language of Asterisk default sounds\n--;\n\n" >> /etc/asterisk/sip.conf

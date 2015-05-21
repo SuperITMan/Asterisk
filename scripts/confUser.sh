@@ -100,7 +100,7 @@ EOF
 			case "$profileChoice" in
 			#Profil commercial
 			"1") 
-				echo "Veuillez lire le fichier de config ci-après et noter le numero que devra porter le nouveau commercial. <4XX> (Exemple : 1 ou 2 ou 11 ou 23 ou ...)"
+				echo "Veuillez lire le fichier de config ci-apres et noter le numero que devra porter le nouveau commercial. <4XX> (Exemple : 1 ou 2 ou 11 ou 23 ou ...)"
 				echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"n\""
 				
 				if [ -f "$asteriskDir"/sip.conf ]; then
@@ -122,7 +122,7 @@ EOF
 			
 			#Profil installateur
 			"2") 
-				echo "Veuillez lire le fichier de config ci-après et noter le numero que devra porter le nouvel installateur. <5XX> (Exemple : 1 ou 2 ou 11 ou 23 ou ...)"
+				echo "Veuillez lire le fichier de config ci-apres et noter le numero que devra porter le nouvel installateur. <5XX> (Exemple : 1 ou 2 ou 11 ou 23 ou ...)"
 				echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"n\""
 				
 				if [ -f "$asteriskDir"/sip.conf ]; then
@@ -145,7 +145,7 @@ EOF
 		
 			#Profil support technique
 			"3") 
-				echo "Veuillez lire le fichier de config ci-après et noter le numero que devra porter le nouveau support technique. <3XX> (Exemple : 1 ou 2 ou 11 ou 23 ou ...)"
+				echo "Veuillez lire le fichier de config ci-apres et noter le numero que devra porter le nouveau support technique. <3XX> (Exemple : 1 ou 2 ou 11 ou 23 ou ...)"
 				echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"n\""
 				
 				if [ -f "$asteriskDir"/sip.conf ]; then

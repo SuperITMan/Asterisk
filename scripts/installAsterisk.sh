@@ -3,7 +3,7 @@
 
 echo "Mise a jour du système"
 apt-get -q=3 update && apt-get -q=3 upgrade
-echo "Mise a jour du système : fait!"
+echo "Mise a jour du systeme : fait!"
 echo "Installation d'Asterisk"
 apt-get -q=3 install asterisk
 echo "Installation d'Asterisk : fait!"
@@ -22,3 +22,4 @@ apt-get -q=3 autoclean
 apt-get -q=3 autoremove
 echo "Installation terminee!"
 read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
+echo ""
