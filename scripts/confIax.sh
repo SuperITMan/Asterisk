@@ -16,7 +16,7 @@ do
 	echo -n "Veuillez entrer l'host de la machine distante sur laquelle se connecter : "
 	read hostAddress
 	ping -c2 $hostAddress
-	$pingTest = $?
+	pingTest=$?
 done
 
 touch /etc/asterisk/iax.conf
