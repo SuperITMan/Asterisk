@@ -23,7 +23,7 @@ else
 isNat="no"
 fi
 
-curl -s ident.me
+curl -s ident.me > /dev/null
 externIp=$?
 bindport="3060"
 

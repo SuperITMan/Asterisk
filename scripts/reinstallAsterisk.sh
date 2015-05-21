@@ -55,6 +55,9 @@ fi
 
 echo "Copie des fichiers de sauvegarde dans $backupDir"
 
+if [ -d "$backupDir" ]; then mkdir "$backupDir"
+fi
+
 cp "$tempBackupDir"/sip.conf "$backupDir"/sip.conf
 cp "$tempBackupDir"/iax.conf "$backupDir"/iax.conf
 cp "$tempBackupDir"/voicemail.conf "$backupDir"/voicemail.conf
