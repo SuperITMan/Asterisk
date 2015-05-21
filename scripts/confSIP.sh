@@ -34,24 +34,27 @@ printf "[general]\ndefaultexpirey=1800			;Default duration (in seconds) of incom
 printf ";--\ntype : friend (User can make & receive phone calls)\ncallerid, fullname : Self-explained\nusername, secret : Login credentials\nhasvoicemail, vmsecret : Has voicemail box, voicemail password\ncontext : dialplan for registered user\nlanguage : language of Asterisk default sounds\n--;\n\n" >> /etc/asterisk/sip.conf
 
 #Profil "coms"
-printf "[coms](general)\ntype=friend\nhasvoicemail=yes\nvmsecret=1234\nqualify=yes\nhost=dynamic\ncontext=coms\nlanguage=fr\n" >> /etc/asterisk/sip.conf
+printf "[coms](general)\ntype=friend\nhasvoicemail=yes\nvmsecret=1234\nqualify=yes\nhost=dynamic\ncontext=coms\nlanguage=fr\n\n" >> /etc/asterisk/sip.conf
 
 #Profil "insts"
-printf "[insts](general)\ntype=friend\nhasvoicemail=yes\nvmsecret=1234\nqualify=yes\nhost=dynamic\ncontext=insts\nlanguage=fr\n" >> /etc/asterisk/sip.conf
+printf "[insts](general)\ntype=friend\nhasvoicemail=yes\nvmsecret=1234\nqualify=yes\nhost=dynamic\ncontext=insts\nlanguage=fr\n\n" >> /etc/asterisk/sip.conf
 
 #Profil "suptechs"
 printf "[suptechs](general)\ntype=friend\nhasvoicemail=yes\nvmsecret=1234\nqualify=yes\nhost=dynamic\ncontext=supptechs\nlanguage=fr\n\n" >> /etc/asterisk/sip.conf
 
+#Fin des profil
+printf "\n-----------------\n\n" >> /etc/asterisk/sip.conf
+
 #Config 3 commerciaux par défaut
-printf "[com1](coms)\nusername=com1\ncallerid=""Commercial 1"" <401>\nfullname=""Commercial 1""\nsecret=com1\n" >> /etc/asterisk/sip.conf
-printf "[com2](coms)\nusername=com2\ncallerid=""Commercial 2"" <402>\nfullname=""Commercial 2""\nsecret=com2\n" >> /etc/asterisk/sip.conf
-printf "[com3](coms)\nusername=com3\ncallerid=""Commercial 3"" <403>\nfullname=""Commercial 3""\nsecret=com3\n" >> /etc/asterisk/sip.conf
+printf "[com1](coms)\nusername=com1\ncallerid=""Commercial 1"" <401>\nfullname=""Commercial 1""\nsecret=com1\n\n" >> /etc/asterisk/sip.conf
+printf "[com2](coms)\nusername=com2\ncallerid=""Commercial 2"" <402>\nfullname=""Commercial 2""\nsecret=com2\n\n" >> /etc/asterisk/sip.conf
+printf "[com3](coms)\nusername=com3\ncallerid=""Commercial 3"" <403>\nfullname=""Commercial 3""\nsecret=com3\n\n" >> /etc/asterisk/sip.conf
 
 #Config 3 installateurs par défaut
-printf "[inst1](insts)\nusername=inst1\ncallerid=""Installateur 1"" <501>\nfullname=""Installateur 1""\nsecret=inst1\n" >> /etc/asterisk/sip.conf
-printf "[inst2](insts)\nusername=inst2\ncallerid=""Installateur 2"" <502>\nfullname=""Installateur 2""\nsecret=inst2\n" >> /etc/asterisk/sip.conf
-printf "[inst3](insts)\nusername=inst3\ncallerid=""Installateur 3"" <503>\nfullname=""Installateur 3""\nsecret=inst3\n" >> /etc/asterisk/sip.conf
+printf "[inst1](insts)\nusername=inst1\ncallerid=""Installateur 1"" <501>\nfullname=""Installateur 1""\nsecret=inst1\n\n" >> /etc/asterisk/sip.conf
+printf "[inst2](insts)\nusername=inst2\ncallerid=""Installateur 2"" <502>\nfullname=""Installateur 2""\nsecret=inst2\n\n" >> /etc/asterisk/sip.conf
+printf "[inst3](insts)\nusername=inst3\ncallerid=""Installateur 3"" <503>\nfullname=""Installateur 3""\nsecret=inst3\n\n" >> /etc/asterisk/sip.conf
 
 #Config 1 support technique par défaut
-printf "[suptech1](suptechs)\nusername=suptech1\ncallerid=""Supp Tech"" <301>\nfullname=""Support Technique""\nsecret=suptech1\n" >> /etc/asterisk/sip.conf
+printf "[suptech1](suptechs)\nusername=suptech1\ncallerid=""Supp Tech"" <301>\nfullname=""Support Technique""\nsecret=suptech1\n\n" >> /etc/asterisk/sip.conf
 

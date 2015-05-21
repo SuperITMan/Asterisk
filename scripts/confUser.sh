@@ -113,7 +113,7 @@ EOF
 				
 				checkNoUser $noUser
 				
-				printf "[com"$noUser"](insts)\nusername=com"$noUser"\ncallerid=""Commercial "$noUser""" <4"$idUserCall">\nfullname=""Commercial "$noUser"""\nsecret="$pwdUser"\n" >> /etc/asterisk/sip.conf
+				printf "[com"$noUser"](insts)\nusername=com"$noUser"\ncallerid=""Commercial "$noUser""" <4"$idUserCall">\nfullname=""Commercial "$noUser"""\nsecret="$pwdUser"\n\n" >> /etc/asterisk/sip.conf
 				
 				echo "Utilisateur rajoute ! Info user : username=com"$noUser
 				read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
@@ -135,7 +135,7 @@ EOF
 				
 				checkNoUser $noUser
 				
-				printf "[inst"$noUser"](insts)\nusername=inst"$noUser"\ncallerid=""Installateur "$noUser""" <5"$idUserCall">\nfullname=""Installateur "$noUser"""\nsecret="$pwdUser"\n" >> /etc/asterisk/sip.conf
+				printf "[inst"$noUser"](insts)\nusername=inst"$noUser"\ncallerid=""Installateur "$noUser""" <5"$idUserCall">\nfullname=""Installateur "$noUser"""\nsecret="$pwdUser"\n\n" >> /etc/asterisk/sip.conf
 				asterisk -rx "reload"
 				
 				echo "Utilisateur rajoute ! Info user : username=inst"$noUser
@@ -160,7 +160,7 @@ EOF
 				
 				checkNoUser $noUser
 				
-				printf "[suptech"$noUser"](insts)\nusername=suptech"$noUser"\ncallerid=""Supp Tech "$noUser""" <3"$idUserCall">\nfullname=""Support Technique "$noUser"""\nsecret="$pwdUser"\n" >> /etc/asterisk/sip.conf
+				printf "[suptech"$noUser"](insts)\nusername=suptech"$noUser"\ncallerid=""Supp Tech "$noUser""" <3"$idUserCall">\nfullname=""Support Technique "$noUser"""\nsecret="$pwdUser"\n\n" >> /etc/asterisk/sip.conf
 				
 				echo "Utilisateur rajoute ! Info user : username=suptech"$noUser
 				read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
