@@ -12,10 +12,10 @@
 cd /tmp
 
 #Téléchargement des scripts sur github
-wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confSIP.sh
-wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confIax.sh
-wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/reinstallAsterisk.sh
-wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confUser.sh
+wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confSIP.sh -O confSIP.sh
+wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confIax.sh -O confIax.sh
+wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/reinstallAsterisk.sh -O reinstallAsterisk.sh
+wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confUser.sh -O confUser.sh
 
 #Attribution des droits nécessaires à l'exécution des scripts
 chmod +x reinstallAsterisk.sh
@@ -51,14 +51,14 @@ do
 	
 EOF
 
-	read -n1 -s
+	read -n1 choice
 	
-	case choice in
+	case "$choice" in
 	
 	#Installation d'Asterisk
 	"1")
 		
-		ping c2 8.8.8.8
+		ping -c2 8.8.8.8
 		pingTest=$?
 		if [ $pingTest -ne 0 ]
 		then
@@ -118,7 +118,7 @@ EOF
 	"q") 
 		exit ;;
 	
-	 * )  echo "Choix invalide !"     ;;
+	 * )  echo "Choix invalide ! "$choice     ;;
 
 	esac
     sleep 1
