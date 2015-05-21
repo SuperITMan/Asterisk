@@ -26,29 +26,29 @@ chmod +x confUser.sh
 while :
 do
 	clear
-	cat<<EOF
-	==============================================================
-	               Installation Asterisk & Add-Ons                
-	==============================================================
-	Veuillez choisir votre option
+cat<<EOF
+==============================================================
+			   Installation Asterisk & Add-Ons                
+==============================================================
+Veuillez choisir votre option
+
+	[1] Installation d'Asterisk
+		- iax, sip, extensions, voicemail, iptables
+	[2] Réinstallation d'Asterisk
+		- sauvegarde de l'installation, réinstallation
+	[3] Modification d'un utilisateur
+		- ajout, édition, suppression d'un ou plusieurs utilisateurs
+	[4] Modification des extensions
+		- modification du dialplan d'Asterisk
+	[5] Modification du voicemail
+		- modifications des voicemails des utilisateurs
+	[6] Modification de l'IAX
+		- modification de la gestion de l'IAX
 	
-		[1] Installation d'Asterisk
-			- iax, sip, extensions, voicemail, iptables
-		[2] Réinstallation d'Asterisk
-			- sauvegarde de l'installation, réinstallation
-		[3] Modification d'un utilisateur
-			- ajout, édition, suppression d'un ou plusieurs utilisateurs
-		[4] Modification des extensions
-			- modification du dialplan d'Asterisk
-		[5] Modification du voicemail
-			- modifications des voicemails des utilisateurs
-		[6] Modification de l'IAX
-			- modification de la gestion de l'IAX
-		
-		[Q]uitter le script
-		
-	--------------------------------------------------------------
+	[Q]uitter le script
 	
+--------------------------------------------------------------
+
 EOF
 
 	read -n1 choice
@@ -58,7 +58,7 @@ EOF
 	#Installation d'Asterisk
 	"1")
 		
-		ping -c2 8.8.8.8
+		ping -q -c3 8.8.8.8
 		pingTest=$?
 		if [ $pingTest -ne 0 ]
 		then
@@ -66,31 +66,38 @@ EOF
 			echo "Merci de vérifier votre connexion et de recommencer ensuite."
 			read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 			
+		elif [-d /etc/asterisk ]
+		then
+			echo "Asterisk est déjà installé sur cet ordinateur."
+			echo "Veuillez choisir l'option \"Réinstallation d'Asterisk\"."
+			read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 		else 
-			apt-get -q update && apt-get upgrade -y
+			echo "Mise à jour du système"
+			apt-get -q=3 update && apt-get -q=3 upgrade
+			echo "Mise à jour du système : fait!"
 			echo "Installation d'Asterisk"
-			apt-get -q install asterisk -y
+			apt-get -q=3 install asterisk
 			echo "Installation d'Asterisk : fait!"
 			echo "Configuration de l'IAX"
 			./confIax.sh
 			echo "Configuration de l'IAX : fait!"
-			sleep 3
+			sleep 2
 			echo "Configuration du SIP"
 			./confSIP.sh
 			echo "Configuration du SIP : fait!"
-			sleep 3
+			sleep 2
 			
 			#Nettoyage après installations
 			echo "Nettoyage de fin d'installation"
-			apt-get autoclean -y
-			apt-get autoremove -y
-			echo "Installation terminée !"
+			apt-get -q=3 autoclean
+			apt-get -q=3 autoremove
+			echo "Installation terminée!"
 			read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 		fi ;;
 		
 	#Réinstallation d'Asterisk
 	"2")
-		ping -c2 8.8.8.8
+		ping -q -c3 8.8.8.8
 		pingTest=$?
 		if [ $pingTest -ne 0 ]
 			then

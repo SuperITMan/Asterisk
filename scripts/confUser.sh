@@ -5,23 +5,23 @@
 while true;
 	do
 	clear
-	cat<<EOF
-	==============================================================
-				   Modification d'un utilisateur                
-	==============================================================
-	Veuillez choisir votre option
+cat<<EOF
+==============================================================
+			   Modification d'un utilisateur                
+==============================================================
+Veuillez choisir votre option
+
+	[1] Ajout d'un utilisateur
+		- choix profil, attribution mot de passe
+	[2] Modification d'un utilisateur
+		- modification profil, mot de passe
+	[3] Suppression d'un utilisateur
+		- suppression du profil
 	
-		[1] Ajout d'un utilisateur
-			- choix profil, attribution mot de passe
-		[2] Modification d'un utilisateur
-			- modification profil, mot de passe
-		[3] Suppression d'un utilisateur
-			- suppression du profil
-		
-		[Q]uitter la modification d'un utilisateur
-		
-	--------------------------------------------------------------
+	[Q]uitter la modification d'un utilisateur
 	
+--------------------------------------------------------------
+
 EOF
 
 	read -n1 -s
@@ -32,23 +32,23 @@ EOF
 			while true;
 			do
 			clear
-	cat<<EOF
-	==============================================================
-				   Modification d'un utilisateur                
-	==============================================================
-	Veuillez choisir le profil de l'utilisateur à ajouter
+cat<<EOF
+==============================================================
+			   Modification d'un utilisateur                
+==============================================================
+Veuillez choisir le profil de l'utilisateur à ajouter
+
+	[1] Profil commercial
+		- 
+	[2] Profil installateur
+		- 
+	[3] Profil support technique
+		- 
 	
-		[1] Profil commercial
-			- 
-		[2] Profil installateur
-			- 
-		[3] Profil support technique
-			- 
-		
-		[Q]uitter l'ajout d'utilisateur
-		
-	--------------------------------------------------------------
+	[Q]uitter l'ajout d'utilisateur
 	
+--------------------------------------------------------------
+
 EOF
 			read -n1 -s
 			case $profileChoice in

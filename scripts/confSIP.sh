@@ -25,13 +25,14 @@ fi
 #while [ $result -ne 0 ]
 #do
 #echo -n "Veuillez : "
-#read externip
+#read externIp
 #ping -q -c5 $externIp > /dev/null
 #$result = $?
 #done
 
 curl ident.me
-externip=$?
+externIp=$?
+bindport="3060"
 
 touch /etc/asterisk/sip.conf
 
