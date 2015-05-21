@@ -8,7 +8,7 @@ function customPassword ()
 	while [ $isCustomPwd != "n" ] && [ $isCustomPwd != "N" ] && [ $isCustomPwd != "o" ] && [ $isCustomPwd != "O" ];
 	do
 	echo "Désirez-vous attribuer un mot de passe personnalisé pour l'utilisateur ? ([O]ui ou [N]on)"
-	read -n1 isCustomPwd
+	read -n1 -s isCustomPwd
 	done
 	
 	if [ $isCustomPwd == "O" ] || [ $isCustomPwd == "o" ] 
@@ -85,18 +85,21 @@ EOF
 			"1") 
 				customPassword "com"
 				echo "Mot de passe utilisateur : "$pwdUser
+				break
 			;;
 			
 			#Profil installateur
 			"2") 
 				customPassword "inst"
-			
+				echo "Mot de passe utilisateur : "$pwdUser
+				break
 			;;
 		
 			#Profil support technique
 			"3") 
 				customPassword "suptech"
-				
+				echo "Mot de passe utilisateur : "$pwdUser
+				break
 			;;
 			
 			"Q")
