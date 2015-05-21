@@ -16,9 +16,9 @@ done
 
 if [ $isNat == "O" ] || [ $isNat == "o" ] 
 then 
-$isNat="yes"
+isNat="yes"
 else 
-$isNat = "no"
+isNat="no"
 fi
 
 #result = ""
@@ -30,7 +30,8 @@ fi
 #$result = $?
 #done
 
-externip = curl ident.me
+curl ident.me
+externip=$?
 
 touch /etc/asterisk/sip.conf
 
