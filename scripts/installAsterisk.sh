@@ -1,26 +1,27 @@
-#!/bin/sh
+#!/bin/bash
 # Script permettant l'installation d'Asterisk sur un serveur Debian nu
 # 
 
 asteriskDir = "/etc/asterisk"
 
-apt-get update -q && apt-get upgrade -y
-apt-get install asterisk -y
-apt-get install curl -y
-apt-get install -y build-essential
+#apt-get update -q && apt-get upgrade -y
+#apt-get install asterisk -y
+#apt-get install curl -y
+#apt-get install -y build-essential
 
 cd /tmp
 wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confSIP.sh
 wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confIax.sh
 wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/reinstallAsterisk.sh
+chmod +x reinstallAsterisk.sh
 
 while :
 do
 	clear
 	cat<<EOF
-	===============================
-	Installation Asterisk & Add-Ons
-	===============================
+	==============================================================
+	               Installation Asterisk & Add-Ons                
+	==============================================================
 	Veuillez choisir votre option
 	
 		[1] Installation d'Asterisk
@@ -37,20 +38,21 @@ do
 			- modification de la gestion de l'IAX
 		
 		[Q]uitter le script
-	-------------------------------
+		
+	--------------------------------------------------------------
 	
 EOF
 
 	read -n1 -s
 	
-	case "$choice" in
+	case $choice in
 	
 	#Installation d'Asterisk
 	"1")
 		
 		ping c2 8.8.8.8
-		pingTest = $?
-		if [ pingTest -ne 0 ]
+		pingTest=$?
+		if [ $pingTest -ne 0 ]
 		then
 			echo "Il semble que vous ne soyez pas connecté à internet."
 			echo "Merci de vérifier votre connexion et de recommencer ensuite."
@@ -80,8 +82,8 @@ EOF
 	"2")
 	
 		ping c2 8.8.8.8
-		pingTest = $?
-		if [ pingTest -ne 0 ]
+		pingTest=$?
+		if [ $pingTest -ne 0 ]
 			then
 				echo "Il semble que vous ne soyez pas connecté à internet."
 				echo "Merci de vérifier votre connexion et de recommencer ensuite."
@@ -89,7 +91,7 @@ EOF
 				
 			else 
 				if [ -d /etc/asterisk ];
-					then
+					then						
 						./reinstallAsterisk.sh
 					else
 						echo "Il semble qu'Asterisk ne soit pas installé sur cet ordinateur."
@@ -100,14 +102,15 @@ EOF
 		
 		# Modification d'un utilisateur
 		"3")
-			exit;;
+			exit ;;
 		"Q")
 			exit ;;
 		
 		"q") 
 			exit ;;
 		
-		* ) echo "Choix invalide." ;;
-		
+		 * )  echo "Choix invalide !"     ;;
+    
 	esac
+    sleep 1
 done
