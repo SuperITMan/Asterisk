@@ -19,16 +19,16 @@ cp "$asteriskDir"/voicemail.conf "$tempBackupDir"/voicemail.conf
 cp "$asteriskDir"/extensions.conf "$tempBackupDir"/extensions.conf
 
 echo "Sauvegarde des fichiers de configuration dans $tempBackupDir : fait!"
-echo "Désinstallation d'Asterisk"
+echo "Desinstallation d'Asterisk"
 apt-get -q=3 remove --purge asterisk -y
-echo "Désinstallation d'Asterisk : fait!"
+echo "Desinstallation d'Asterisk : fait!"
 sleep 3
 
-read -p "Désirez-vous recréer les fichiers de configuration d'Asterisk ? ([O]ui ou [N]on) : " -n1 newInstall
+read -p "Desirez-vous recreer les fichiers de configuration d'Asterisk ? ([O]ui ou [N]on) : " -n1 newInstall
 while [ "$newInstall" != "n" ] && [ "$newInstall" != "N" ] && [ "$newInstall" != "o" ] && [ "$newInstall" != "O" ];
 	do
 	echo "Choix invalide! Veuillez recommencer."
-	read -p "Désirez-vous recréer les fichiers de configuration d'Asterisk ? ([O]ui ou [N]on) : " -n1 newInstall
+	read -p "Desirez-vous recreer les fichiers de configuration d'Asterisk ? ([O]ui ou [N]on) : " -n1 newInstall
 	done
 
 echo ""
@@ -39,9 +39,9 @@ if [ "$newInstall" == "O" ] || [ "$newInstall" == "o" ]
 		
 	else
 		#Réinstallation Asterisk
-		echo "Réinstallation d'Asterisk"
+		echo "Reinstallation d'Asterisk"
 		apt-get -q=3 install asterisk -y
-		echo "Réinstallation d'Asterisk : fait!"
+		echo "Reinstallation d'Asterisk : fait!"
 		sleep 3
 
 		echo "Restauration des fichiers de configuration"

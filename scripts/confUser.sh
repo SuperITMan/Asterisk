@@ -4,16 +4,17 @@
 
 asteriskDir="/etc/asterisk"
 
+#---------------------------------------------------Personal functions----------------------------------------------------#
 function customPassword ()
 {
-	read -p "Désirez-vous attribuer un mot de passe personnalisé pour l'utilisateur ? ([O]ui ou [N]on) : " -n1 isCustomPwd
+	read -p "Desirez-vous attribuer un mot de passe personnalise pour l'utilisateur ? ([O]ui ou [N]on) : " -n1 isCustomPwd
 	while [ $isCustomPwd != "n" ] && [ $isCustomPwd != "N" ] && [ $isCustomPwd != "o" ] && [ $isCustomPwd != "O" ];
 	do
 	echo "Choix invalide! Veuillez recommencer."
-	read -p "Désirez-vous attribuer un mot de passe personnalisé pour l'utilisateur ? ([O]ui ou [N]on) : " -n1 isCustomPwd
-	#echo "Désirez-vous attribuer un mot de passe personnalisé pour l'utilisateur ? ([O]ui ou [N]on)"
-	#read -n1 -s isCustomPwd
+	read -p "Desirez-vous attribuer un mot de passe personnalise pour l'utilisateur ? ([O]ui ou [N]on) : " -n1 isCustomPwd
 	done
+	
+	echo ""
 	
 	if [ $isCustomPwd == "O" ] || [ $isCustomPwd == "o" ] 
 	then 		
@@ -34,6 +35,18 @@ function customPassword ()
 		pwdUser=$1""$2
 	fi
 }
+
+function checkNoUser () 
+{
+	echo "Char recu : $1"
+	if [ "$1" -lt 10 ]
+	then
+		idUserCall="0$1"
+	else
+		idUserCall="$1"
+	fi
+}
+#------------------------------------------------End of personal functions------------------------------------------------#
 
 while :
 	do
@@ -69,7 +82,7 @@ cat<<EOF
 ==============================================================
                    Ajout d'un utilisateur                
 ==============================================================
-Veuillez choisir le profil de l'utilisateur à ajouter
+Veuillez choisir le profil de l'utilisateur a ajouter
 
 	[1] Profil commercial
 		- 
@@ -87,63 +100,69 @@ EOF
 			case "$profileChoice" in
 			#Profil commercial
 			"1") 
-				echo "Veuillez lire le fichier de config ci-après et noter le numéro que devra porter le nouveau commercial. <4XX> (Exemple : 01 ou 02 ou 11 ou ...)"
-				echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demandé s'il faut sauver, taper \"n\""
+				echo "Veuillez lire le fichier de config ci-après et noter le numero que devra porter le nouveau commercial. <4XX> (Exemple : 1 ou 2 ou 11 ou 23 ou ...)"
+				echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"n\""
 				
 				if [ -f "$asteriskDir"/sip.conf ]; then
 				nano "$asteriskDir"/sip.conf
-				read -p "Veuillez taper le numéro que l'utilisateur : " noUser
-				#noUser=$?
+				read -p "Veuillez taper le numero que l'utilisateur : " noUser
 				fi
 				
 				customPassword "com" $noUser
 				echo "Mot de passe utilisateur : "$pwdUser
-				printf "[com"$noUser"](insts)\nusername=com"$noUser"\ncallerid=""Commercial "$noUser""" <40"$noUser">\nfullname=""Commercial "$noUser"""\nsecret="$pwdUser >> /etc/asterisk/sip.conf
 				
-				echo "Utilisateur rajouté ! Info user : username=com"$noUser
+				checkNoUser $noUser
+				
+				printf "[com"$noUser"](insts)\nusername=com"$noUser"\ncallerid=""Commercial "$noUser""" <4"$idUserCall">\nfullname=""Commercial "$noUser"""\nsecret="$pwdUser"\n" >> /etc/asterisk/sip.conf
+				
+				echo "Utilisateur rajoute ! Info user : username=com"$noUser
 				read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 				break
 			;;
 			
 			#Profil installateur
 			"2") 
-				echo "Veuillez lire le fichier de config ci-après et noter le numéro que devra porter le nouvel installateur. <5XX> (Exemple : 01 ou 02 ou 11 ou ...)"
-				echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demandé s'il faut sauver, taper \"n\""
+				echo "Veuillez lire le fichier de config ci-après et noter le numero que devra porter le nouvel installateur. <5XX> (Exemple : 1 ou 2 ou 11 ou 23 ou ...)"
+				echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"n\""
 				
 				if [ -f "$asteriskDir"/sip.conf ]; then
 				nano "$asteriskDir"/sip.conf
-				read -p "Veuillez taper le numéro que l'utilisateur : " noUser
-				#noUser=$?
+				read -p "Veuillez taper le numero que l'utilisateur : " noUser
 				fi
 				
 				customPassword "inst" $noUser
 				echo "Mot de passe utilisateur : "$pwdUser
-				printf "[inst"$noUser"](insts)\nusername=inst"$noUser"\ncallerid=""Installateur "$noUser""" <50"$noUser">\nfullname=""Installateur "$noUser"""\nsecret="$pwdUser >> /etc/asterisk/sip.conf
+				
+				checkNoUser $noUser
+				
+				printf "[inst"$noUser"](insts)\nusername=inst"$noUser"\ncallerid=""Installateur "$noUser""" <5"$idUserCall">\nfullname=""Installateur "$noUser"""\nsecret="$pwdUser"\n" >> /etc/asterisk/sip.conf
 				asterisk -rx "reload"
 				
-				echo "Utilisateur rajouté ! Info user : username=inst"$noUser
+				echo "Utilisateur rajoute ! Info user : username=inst"$noUser
 				read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 				break
 			;;
 		
 			#Profil support technique
 			"3") 
-				echo "Veuillez lire le fichier de config ci-après et noter le numéro que devra porter le nouveau support technique. <3XX> (Exemple : 01 ou 02 ou 11 ou ...)"
-				echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demandé s'il faut sauver, taper \"n\""
+				echo "Veuillez lire le fichier de config ci-après et noter le numero que devra porter le nouveau support technique. <3XX> (Exemple : 1 ou 2 ou 11 ou 23 ou ...)"
+				echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"n\""
 				
 				if [ -f "$asteriskDir"/sip.conf ]; then
 				nano "$asteriskDir"/sip.conf
-				read -p "Veuillez taper le numéro que l'utilisateur : " noUser
-				#noUser=$?
+				read -p "Veuillez taper le numero que l'utilisateur : " noUser
 				else
 				echo "il y a un problème : $asteriskDir/sip.conf"
 				fi
 				
 				customPassword "suptech" $noUser
 				echo "Mot de passe utilisateur : "$pwdUser
-				printf "[suptech"$noUser"](insts)\nusername=suptech"$noUser"\ncallerid=""Supp Tech "$noUser""" <50"$noUser">\nfullname=""Support Technique "$noUser"""\nsecret="$pwdUser >> /etc/asterisk/sip.conf
 				
-				echo "Utilisateur rajouté ! Info user : username=suptech"$noUser
+				checkNoUser $noUser
+				
+				printf "[suptech"$noUser"](insts)\nusername=suptech"$noUser"\ncallerid=""Supp Tech "$noUser""" <3"$idUserCall">\nfullname=""Support Technique "$noUser"""\nsecret="$pwdUser"\n" >> /etc/asterisk/sip.conf
+				
+				echo "Utilisateur rajoute ! Info user : username=suptech"$noUser
 				read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 				break
 			;;
@@ -174,4 +193,3 @@ EOF
 		esac 
 		sleep 1
 		done
-		

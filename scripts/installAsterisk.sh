@@ -1,9 +1,9 @@
 #!/bin/bash
 #Script permettant l'installation d'Asterisk
 
-echo "Mise à jour du système"
+echo "Mise a jour du système"
 apt-get -q=3 update && apt-get -q=3 upgrade
-echo "Mise à jour du système : fait!"
+echo "Mise a jour du système : fait!"
 echo "Installation d'Asterisk"
 apt-get -q=3 install asterisk
 echo "Installation d'Asterisk : fait!"
@@ -20,5 +20,5 @@ sleep 2
 echo "Nettoyage de fin d'installation"
 apt-get -q=3 autoclean
 apt-get -q=3 autoremove
-echo "Installation terminée!"
+echo "Installation terminee!"
 read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1

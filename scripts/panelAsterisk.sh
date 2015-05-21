@@ -36,10 +36,10 @@ Veuillez choisir votre option
 
 	[1] Installation d'Asterisk
 		- iax, sip, extensions, voicemail, iptables
-	[2] Réinstallation d'Asterisk
-		- sauvegarde de l'installation, réinstallation
+	[2] Reinstallation d'Asterisk
+		- sauvegarde de l'installation, reinstallation
 	[3] Modification d'un utilisateur
-		- ajout, édition, suppression d'un ou plusieurs utilisateurs
+		- ajout, edition, suppression d'un ou plusieurs utilisateurs
 	[4] Modification des extensions
 		- modification du dialplan d'Asterisk
 	[5] Modification du voicemail
@@ -63,13 +63,13 @@ EOF
 		pingTest=$?
 		if [ $pingTest -ne 0 ]
 		then
-			echo "Il semble que vous ne soyez pas connecte à internet."
+			echo "Il semble que vous ne soyez pas connecte a internet."
 			echo "Merci de verifier votre connexion et de recommencer ensuite."
 			read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 			
 		elif [-d /etc/asterisk ]
 		then
-			echo "Asterisk est déjà installe sur cet ordinateur."
+			echo "Asterisk est deja installe sur cet ordinateur."
 			echo "Veuillez choisir l'option \"Reinstallation d'Asterisk\"."
 			read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 		else 		
@@ -82,7 +82,7 @@ EOF
 		pingTest=$?
 		if [ $pingTest -ne 0 ]
 			then
-				echo "Il semble que vous ne soyez pas connecte à internet."
+				echo "Il semble que vous ne soyez pas connecte a internet."
 				echo "Merci de verifier votre connexion et de recommencer ensuite."
 				read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 				
