@@ -2,7 +2,7 @@
 # Script permettant l'installation d'Asterisk sur un serveur Debian nu
 # 
 
-asteriskDir = "/etc/asterisk"
+#asteriskDir = "/etc/asterisk"
 
 #apt-get update -q && apt-get upgrade -y
 #apt-get install asterisk -y
@@ -10,10 +10,18 @@ asteriskDir = "/etc/asterisk"
 #apt-get install -y build-essential
 
 cd /tmp
+
+#Téléchargement des scripts sur github
 wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confSIP.sh
 wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confIax.sh
 wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/reinstallAsterisk.sh
+wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confUser.sh
+
+#Attribution des droits nécessaires à l'exécution des scripts
 chmod +x reinstallAsterisk.sh
+chmod +x confIax.sh
+chmod +x conSIP.sh
+chmod +x confUser.sh
 
 while :
 do
@@ -45,7 +53,7 @@ EOF
 
 	read -n1 -s
 	
-	case $choice in
+	case choice in
 	
 	#Installation d'Asterisk
 	"1")
@@ -80,7 +88,6 @@ EOF
 		
 	#Réinstallation d'Asterisk
 	"2")
-	
 		ping c2 8.8.8.8
 		pingTest=$?
 		if [ $pingTest -ne 0 ]
@@ -100,17 +107,20 @@ EOF
 				fi
 		fi;;
 		
-		# Modification d'un utilisateur
-		"3")
-			exit ;;
-		"Q")
-			exit ;;
-		
-		"q") 
-			exit ;;
-		
-		 * )  echo "Choix invalide !"     ;;
-    
+	# Modification d'un utilisateur
+	"3")
+		./confUser.sh
+	;;
+	
+	"Q")
+		exit ;;
+	
+	"q") 
+		exit ;;
+	
+	 * )  echo "Choix invalide !"     ;;
+
 	esac
     sleep 1
+
 done
