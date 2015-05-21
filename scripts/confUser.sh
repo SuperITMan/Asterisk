@@ -12,11 +12,14 @@ function customPassword ()
 	done
 	
 	if [ $isCustomPwd == "O" ] || [ $isCustomPwd == "o" ] 
-	then 
-		pwdUser="yhj"
-		pwdUser2="hh"
+	then 		
+		echo "Veuillez entrer le mot de passe : "
+		read -s pwdUser
+		echo "Veuillez entrer une 2e fois le mot de passe : "
+		read -s pwdUser2
 		while [ "$pwdUser" != "$pwdUser2" ]
 		do
+			echo "Erreur! Les mots de passe ne correspondent pas. Veuillez recommencer."
 			echo "Veuillez entrer le mot de passe : "
 			read -s pwdUser
 			echo "Veuillez entrer une 2e fois le mot de passe : "
