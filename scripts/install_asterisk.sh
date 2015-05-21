@@ -1,0 +1,377 @@
+#!/bin/bash
+
+# PATH
+dir_install_asterisk=/usr/src/asterisk
+dir_asterisk=/etc/asterisk
+dir_backup=/etc/asterisk/bkasterisk
+
+# SIP
+param_config_asterisk='--enable CORE-SOUNDS-FR-ULAW --enable MOH-OPSOUND-ULAW --enable EXTRA-SOUNDS-FR-ULAW'
+users_base=install_asterisk_users_conf
+ext_base=install_asterisk_extensions_conf
+voice_base=install_asterisk_voicemail_conf
+voicemail_on=yes
+voicemail_pass=1234
+
+#---------------------------------------------------------------------------------------------------------------
+
+cd /tmp
+rm -f install_asterisk_extensions_conf
+wget https://raw.github.com/r0ut3ur/linux_scripts/master/asterisk/install_asterisk_extensions_conf
+rm -f install_asterisk_users_conf
+wget https://raw.github.com/r0ut3ur/linux_scripts/master/asterisk/install_asterisk_users_conf
+rm -f install_asterisk_voicemail_conf
+wget https://raw.github.com/r0ut3ur/linux_scripts/master/asterisk/install_asterisk_voicemail_conf
+rm -f install_asterisk_iax_conf
+wget https://raw.github.com/r0ut3ur/linux_scripts/master/asterisk/install_asterisk_iax_conf
+
+while :
+do
+    clear
+    cat<<EOF
+    ===================================
+    Installation d'Asterisk et Add-ons
+    -----------------------------------
+    Merci de faire votre choix :
+
+	(1) Premiere installation
+		> iptables, sshguard, asterisk
+	(2) Reinstallation d'asterisk
+		> back-up de la configuration & reinstallation
+	(3) Edition du fichier users.conf
+		> fichier des utilisateurs d'asterisk
+	(4) Edition du fichier extensions.conf
+		> fichier du dialplan d'asterisk
+	(5) Edition du fichier voicemail.conf
+		> fichier de gestion des boites vocales
+	(6) Edition du fichier iax.conf
+		> fichier de gestion de l'IAX
+	(7) Ajout d'un utilisateur
+
+	(Q)uitter
+    ------------------------------
+	
+EOF
+	
+	read -n1 -s
+    case "$REPLY" in
+    
+	# Premiere installation
+	"1")  
+		
+		ping -c3 8.8.8.8
+		test_ping=$?
+		if [ $test_ping -ne 0 ]
+		then
+			echo "La connection vers Internet ne semble pas active."
+			echo "Merci de verifier son bon fonctionnement avant de continuer."
+			read -p "Merci d'appuyer sur une touche ..." -n1
+		else
+			# iptables
+			echo "Mise a jour de la liste des regles iptables"
+			sleep 2
+			# Flush out the existing rules
+			iptables -F
+			# Allow localhost loopback interface
+			iptables -A INPUT -i lo -j ACCEPT
+			# Allow already established connections
+			iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+			# Allow icmp
+			iptables -A INPUT -p icmp -j ACCEPT
+			iptables -A OUTPUT -p icmp -m conntrack --ctstate NEW,ESTABLISHED,RELATED -j ACCEPT
+			# Allow FreePBX administration from user's PC
+			iptables -A INPUT -p tcp --dport www -j ACCEPT
+			# Allow SIP from the SIP trunk and user's PC
+			iptables -A INPUT -p tcp --dport 5060 -j ACCEPT
+			iptables -A INPUT -p udp --dport 5060 -j ACCEPT
+			iptables -A INPUT -p udp --dport 4569 -j ACCEPT
+			# Allow voice streaming for user
+			iptables -A INPUT -p udp --dport 10000:20000 -j ACCEPT
+			#Allow SSH
+			iptables -A INPUT -p tcp --dport ssh -j ACCEPT
+			# Set default policies
+			iptables -P INPUT DROP
+			iptables -P FORWARD DROP
+			iptables -P OUTPUT ACCEPT
+			echo "Installation d'iptables : done !"
+			sleep 2
+
+			# Installation d' iptables-persistent et sauvegarde des regles
+			echo "Installation d'iptables-persistent"
+			sleep 2
+			apt-get install -y iptables-persistent
+			iptables-save > /etc/iptables/rules.v4
+			echo "Sauvegarde des regles iptables : done !"
+			sleep 2
+
+			# Mise a jour du systeme et installation
+			echo "Mise a jour du systeme et installation d'Asterisk"
+			sleep 2
+			apt-get update && apt-get -y upgrade
+			apt-get install -y build-essential libxml2-dev libncurses5-dev libsqlite3-dev libssl-dev
+			mkdir $dir_install_asterisk
+			cd $dir_install_asterisk
+			wget http://downloads.asterisk.org/pub/telephony/asterisk/releases/asterisk-12.1.1.tar.gz
+			tar xvzf asterisk-12.1.1.tar.gz
+			cd asterisk-12.1.1
+			contrib/scripts/install_prereq install
+			./configure
+			make menuselect.makeopts
+			menuselect/menuselect $param_config_asterisk menuselect.makeopts
+			make
+			make install
+			make samples
+			make config
+			
+			# Sons en fr
+			echo "Mise en place des sons en francais."
+			sed -i -e "s/\;language=en/language=fr /g" $dir_asterisk/sip.conf
+			sleep 2
+			
+			#users.conf & extensions.conf
+			echo "Mise en place des fichiers de configurations."
+			cd /tmp
+			cp $dir_asterisk/users.conf $dir_asterisk/users.conf.bak
+			cp $users_base $dir_asterisk/users.conf
+			cp $dir_asterisk/extensions.conf $dir_asterisk/extensions.conf.bak
+			cp $ext_base $dir_asterisk/extensions.conf	
+			cp $dir_asterisk/voicemail.conf $dir_asterisk/voicemail.conf.bak
+			cp $voice_base $dir_asterisk/voicemail.conf
+			cp $dir_asterisk/iax.conf $dir_asterisk/iax.conf.bak
+			cp $voice_base $dir_asterisk/iax.conf
+			sleep 2
+				
+			/etc/init.d/asterisk start
+			echo "Installation d'asterisk : done !"
+			sleep 5
+			
+			# Installation de Google TTS
+			echo "Installation de google TTS"
+			sleep 2
+			cd /var/lib/asterisk/agi-bin
+			wget https://raw.github.com/zaf/asterisk-googletts/master/googletts.agi
+			chmod +x googletts.agi
+
+			# Installation de sshguard
+			echo "Installation de SSHGuard"
+			apt-get install -y sshguard
+			echo "Installation de SSHGuard : done !"
+			sleep 2
+
+			# Nettoyage du systeme
+			echo "Nettoyage et fin du script"
+			apt-get autoclean -y
+			apt-get autoremove -y
+			echo "OK - Installations terminées !"
+			read -p "Merci d'appuyer sur une touche ..." -n1
+		fi
+
+	;;
+	
+	# Sauvegarde de la config et reinstallation
+    "2")  
+		
+		ping -c3 8.8.8.8
+		test_ping=$?
+		if [ $test_ping -ne 0 ]
+		then
+			echo "La connection vers Internet ne semble pas active."
+			echo "Merci de verifier son bon fonctionnement avant de continuer."
+			read -p "Merci d'appuyer sur une touche ..." -n1
+		else
+			if [ -d /etc/asterisk ]; then
+				/etc/init.d/asterisk stop
+				
+				# Sauvegarde des conf
+				echo "Sauvegarde des fichiers dans $dir_backup"
+				sleep 2
+				mkdir $dir_backup
+				cp $dir_asterisk/sip.conf $dir_backup/sip.conf
+				cp $dir_asterisk/users.conf $dir_backup/users.conf
+				cp $dir_asterisk/extensions.conf $dir_backup/extensions.conf
+				cp $dir_asterisk/voicemail.conf $dir_backup/voicemail.conf
+				cp $dir_asterisk/iax.conf $dir_backup/iax.conf
+				sleep 2
+				
+				# Mise a jour du systeme et reinstallation
+				echo "Mise a jour du systeme et reinstallation d'Asterisk"
+				sleep 2
+				apt-get update && apt-get -y upgrade
+				apt-get --reinstall install -y build-essential libxml2-dev libncurses5-dev libsqlite3-dev libssl-dev
+				cd $dir_install_asterisk
+				wget http://downloads.asterisk.org/pub/telephony/asterisk/releases/asterisk-12.1.1.tar.gz
+				tar xvzf asterisk-12.1.1.tar.gz
+				cd asterisk-12.1.1
+				contrib/scripts/install_prereq install
+				./configure
+				make menuselect.makeopts
+				menuselect/menuselect $param_config_asterisk menuselect.makeopts
+				make
+				make install
+				make samples
+				make config
+				echo "Reconfiguration d'asterisk : done !"
+				sleep 2
+				
+				# Injection des conf
+				echo "Reinstallation des fichiers de conf"
+				sleep 2
+				cp $dir_backup/sip.conf $dir_asterisk/sip.conf
+				cp $dir_backup/users.conf $dir_asterisk/users.conf
+				cp $dir_backup/extensions.conf $dir_asterisk/extensions.conf
+				cp $dir_backup/voicemail.conf $dir_asterisk/voicemail.conf
+				cp $dir_backup/iax.conf $dir_asterisk/iax.conf
+				
+				/etc/init.d/asterisk start
+				
+				asterisk -rx "reload"
+				
+				echo "Injection des fichiers de conf : done !"
+				echo "Les fichiers de back-up se trouvent dans $dir_backup"
+				read -p "Merci d'appuyer sur une touche ..." -n1
+			
+			else
+				echo "Asterisk ne semble pas installe"
+				echo "Choisir l'option 1 pour une premiere installation."
+				read -p "Merci d'appuyer sur une touche ..." -n1
+			fi
+		fi
+		
+	;;
+	
+	# Modification users.conf
+    "3")
+		
+		if [ -f $dir_asterisk/users.conf ]; then
+			nano $dir_asterisk/users.conf
+			asterisk -rx "reload"
+		else
+			echo "Ce fichier n'est pas present."
+			echo "Choisir l'option 1 pour une premiere installation,"
+			echo "l'option 2 pour une reparation de l'installation."
+			read -p "Merci d'appuyer sur une touche ..." -n1
+		fi
+	
+	;;
+	
+	# Modification extensions.conf
+    "4")
+		
+		if [ -f $dir_asterisk/extensions.conf ]; then
+			nano $dir_asterisk/extensions.conf
+			asterisk -rx "reload"
+		else
+			echo "Ce fichier n'est pas present."
+			echo "Choisir l'option 1 pour une premiere installation,"
+			echo "l'option 2 pour une reparation de l'installation"
+			read -p "Merci d'appuyer sur une touche ..." -n1
+		fi
+	
+	;;
+	
+	# Modification voicemail.conf
+    "5")
+		
+		if [ -f $dir_asterisk/extensions.conf ]; then
+			nano $dir_asterisk/voicemail.conf
+			asterisk -rx "reload"
+		else
+			echo "Ce fichier n'est pas present."
+			echo "Choisir l'option 1 pour une premiere installation,"
+			echo "l'option 2 pour une reparation de l'installation"
+			read -p "Merci d'appuyer sur une touche ..." -n1
+		fi
+	
+	;;
+	
+	# Modification iax.conf
+    "6")
+		
+		if [ -f $dir_asterisk/iax.conf ]; then
+			nano $dir_asterisk/iax.conf
+			asterisk -rx "reload"
+		else
+			echo "Ce fichier n'est pas present."
+			echo "Choisir l'option 1 pour une premiere installation,"
+			echo "l'option 2 pour une reparation de l'installation"
+			read -p "Merci d'appuyer sur une touche ..." -n1
+		fi
+	
+	;;
+	
+	# Ajout user
+    "7")
+		
+		if [ -f $dir_asterisk/users.conf ]; then
+			clear 
+			echo ""
+			echo "Quel numero SIP ? (ex: 6001)"
+			read numsip
+			grep $numsip $dir_asterisk/users.conf
+			if [ $? == 1 ] 
+			then
+				echo "Prenom et NOM ? (ex: John DOE)"
+				read nomprenom
+				echo "Quel username ? (ex: jdoe)"
+				read user
+				echo "Quel mot de passe ?"
+				read pass
+				echo ""
+				echo "Les donnees qui seront enregistrees : "
+				echo ""
+				echo " [$numsip]"
+				echo " fullname = $nomprenom"
+				echo " username = $user"
+				echo " secret = $pass"
+				echo ""
+				PS3='> '
+				LISTE=("[y] Confirmation" "[n] Annulation")
+				select CHOIX in "${LISTE[@]}" ; do
+					case $REPLY in
+						1|y)
+							echo ""
+							echo "" | tee -a $dir_asterisk/users.conf
+							echo "[$numsip](template)" | tee -a $dir_asterisk/users.conf
+							echo "fullname = $nomprenom" | tee -a $dir_asterisk/users.conf
+							echo "username = $user" | tee -a $dir_asterisk/users.conf
+							echo "secret = $pass" | tee -a $dir_asterisk/users.conf
+							if [ $voicemail_on == 'yes' ]
+							then
+								echo "$numsip => $voicemail_pass,$user" | tee -a $dir_asterisk/voicemail.conf
+							fi
+							echo ""
+							echo "-> Utilisateur enregistré."
+							asterisk -rx "reload"
+							read -p "Merci d'appuyer sur une touche ..." -n1
+							break
+						;;
+						2|n)
+							echo ""
+							echo "Aucune modification n'a ete apportee."
+							read -p "Merci d'appuyer sur une touche ..." -n1
+							break
+						;;
+					esac
+				done
+			else
+				echo ""
+				echo "Ce numero SIP existe deja."
+				echo "Aucune modification n'a ete apportee."
+				read -p "Merci d'appuyer sur une touche ..." -n1
+			fi	
+						
+		else
+			echo "Asterisk ne semble pas installe, ou endomage."
+			echo "Choisir l'option 1 pour une premiere installation,"
+			echo "l'option 2 pour une reparation de l'installation"
+			read -p "Merci d'appuyer sur une touche ..." -n1
+		fi
+	
+	;;
+	
+    "Q")  exit                      ;;
+    "q")  echo "Ne vouliez-vous pas dire "Q" ?"   ;; 
+     * )  echo "Option invalide !"     ;;
+    esac
+    sleep 1
+done

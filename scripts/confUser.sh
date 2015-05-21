@@ -34,7 +34,7 @@ EOF
 			clear
 cat<<EOF
 ==============================================================
-			   Modification d'un utilisateur                
+			        Ajout d'un utilisateur                
 ==============================================================
 Veuillez choisir le profil de l'utilisateur à ajouter
 
@@ -50,16 +50,25 @@ Veuillez choisir le profil de l'utilisateur à ajouter
 --------------------------------------------------------------
 
 EOF
-			read -n1 -s
+			read -n1 profileChoice
 			case $profileChoice in
 			#Profil commercial
-			"1") ;;
+			"1") 
+				customPassword "com"
+				echo "Mot de passe utilisateur : "$pwdUser
+			;;
 			
 			#Profil installateur
-			"2") ;;
+			"2") 
+				customPassword "inst"
+			
+			;;
 		
 			#Profil support technique
-			"3") ;;
+			"3") 
+				customPassword "suptech"
+				
+			;;
 			
 			"Q")
 			break ;;
@@ -87,3 +96,29 @@ EOF
 		esac 
 		sleep 1
 		done
+		
+function customPassword ()
+{
+	isCustomPwd="yyy"
+	while [ $isCustomPwd != "n" ] && [ $isCustomPwd != "N" ] && [ $isCustomPwd != "o" ] && [ $isCustomPwd != "O" ];
+	do
+	echo -n1 "Désirez-vous attribuer un mot de passe personnalisé pour l'utilisateur ? ([O]ui ou [N]on)"
+	read isCustomPwd
+	done
+	
+	if [ $isCustomPwd == "O" ] || [ $isCustomPwd == "o" ] 
+	then 
+		pwdUser="yhj"
+		pwdUser2="hh"
+		while [ "$pwdUser" != "$pwdUser2" ]
+		do
+			echo -n -s "Veuillez entrer le mot de passe : "
+			read pwdUser
+			echo -n -s "Veuillez entrer une 2e fois le mot de passe : "
+			read pwdUser2
+		done
+		
+	else 
+		pwdUser=$1
+	fi
+}
