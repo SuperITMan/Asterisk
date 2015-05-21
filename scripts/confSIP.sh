@@ -10,8 +10,8 @@ mv /etc/asterisk/sip.conf /etc/asterisk/sip.conf.old
 isNat="yyy"
 while [ $isNat != "n" ] && [ $isNat != "N" ] && [ $isNat != "o" ] && [ $isNat != "O" ];
 do
-echo -n "Le serveur Asterisk se trouve-t-il derrière un NAT ? ([O]ui ou [Non]) : "
-read isNat
+read -p "Le serveur Asterisk se trouve-t-il derrière un NAT ? ([O]ui ou [Non]) : " -n1 isNat
+#read isNat
 done
 
 if [ $isNat == "O" ] || [ $isNat == "o" ] 

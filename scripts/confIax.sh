@@ -7,17 +7,21 @@ mv /etc/asterisk/iax.conf /etc/asterisk/iax.conf.old
 echo -n "Veuillez entrer l'host de la machine distante sur laquelle se connecter : "
 read hostAddress
 
-ping -c2 $hostAddress
+echo "Vérification de l'host donné"
+ping -q -c2 $hostAddress
 pingTest=$?
 
 while [ $pingTest -ne 0 ];
 do
+	echo "Vérification de l'host donné : erreur!"
 	echo "L'adresse indiquée est erronée."
 	echo -n "Veuillez entrer l'host de la machine distante sur laquelle se connecter : "
 	read hostAddress
-	ping -c2 $hostAddress
+	ping -q -c2 $hostAddress
 	pingTest=$?
 done
+
+echo "Vérification de l'host donné : fait!"
 
 touch /etc/asterisk/iax.conf
 

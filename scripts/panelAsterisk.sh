@@ -30,7 +30,7 @@ do
 	clear
 cat<<EOF
 ==============================================================
-			   Installation Asterisk & Add-Ons                
+               Installation Asterisk & Add-Ons                
 ==============================================================
 Veuillez choisir votre option
 
@@ -63,14 +63,14 @@ EOF
 		pingTest=$?
 		if [ $pingTest -ne 0 ]
 		then
-			echo "Il semble que vous ne soyez pas connecté à internet."
-			echo "Merci de vérifier votre connexion et de recommencer ensuite."
+			echo "Il semble que vous ne soyez pas connecte à internet."
+			echo "Merci de verifier votre connexion et de recommencer ensuite."
 			read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 			
 		elif [-d /etc/asterisk ]
 		then
-			echo "Asterisk est déjà installé sur cet ordinateur."
-			echo "Veuillez choisir l'option \"Réinstallation d'Asterisk\"."
+			echo "Asterisk est déjà installe sur cet ordinateur."
+			echo "Veuillez choisir l'option \"Reinstallation d'Asterisk\"."
 			read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 		else 		
 			./installAsterisk.sh
@@ -82,8 +82,8 @@ EOF
 		pingTest=$?
 		if [ $pingTest -ne 0 ]
 			then
-				echo "Il semble que vous ne soyez pas connecté à internet."
-				echo "Merci de vérifier votre connexion et de recommencer ensuite."
+				echo "Il semble que vous ne soyez pas connecte à internet."
+				echo "Merci de verifier votre connexion et de recommencer ensuite."
 				read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 				
 			else 
@@ -91,7 +91,7 @@ EOF
 					then						
 						./reinstallAsterisk.sh
 					else
-						echo "Il semble qu'Asterisk ne soit pas installé sur cet ordinateur."
+						echo "Il semble qu'Asterisk ne soit pas installe sur cet ordinateur."
 						echo "Veuillez choisir l'option 1 pour une installation d'Asterisk"
 						read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 				fi

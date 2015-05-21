@@ -2,7 +2,7 @@
 # Script permettant la modification d'utilisateur sur Asterisk
 # 
 
-asteriskDir = "/etc/asterisk"
+asteriskDir="/etc/asterisk"
 
 function customPassword ()
 {
@@ -90,10 +90,10 @@ EOF
 				echo "Veuillez lire le fichier de config ci-après et noter le numéro que devra porter le nouveau commercial. <4XX> (Exemple : 01 ou 02 ou 11 ou ...)"
 				echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demandé s'il faut sauver, taper \"n\""
 				
-				if [ -f $asteriskDir/sip.conf ]; then
-				nano $asteriskDir/sip.conf
-				read -p "Veuillez taper le numéro que l'utilisateur : " 
-				noUser=$?
+				if [ -f "$asteriskDir"/sip.conf ]; then
+				nano "$asteriskDir"/sip.conf
+				read -p "Veuillez taper le numéro que l'utilisateur : " noUser
+				#noUser=$?
 				fi
 				
 				customPassword "com" $noUser
@@ -110,10 +110,10 @@ EOF
 				echo "Veuillez lire le fichier de config ci-après et noter le numéro que devra porter le nouvel installateur. <5XX> (Exemple : 01 ou 02 ou 11 ou ...)"
 				echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demandé s'il faut sauver, taper \"n\""
 				
-				if [ -f $asteriskDir/sip.conf ]; then
-				nano $asteriskDir/sip.conf
-				read -p "Veuillez taper le numéro que l'utilisateur : " 
-				noUser=$?
+				if [ -f "$asteriskDir"/sip.conf ]; then
+				nano "$asteriskDir"/sip.conf
+				read -p "Veuillez taper le numéro que l'utilisateur : " noUser
+				#noUser=$?
 				fi
 				
 				customPassword "inst" $noUser
@@ -131,10 +131,12 @@ EOF
 				echo "Veuillez lire le fichier de config ci-après et noter le numéro que devra porter le nouveau support technique. <3XX> (Exemple : 01 ou 02 ou 11 ou ...)"
 				echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demandé s'il faut sauver, taper \"n\""
 				
-				if [ -f $asteriskDir/sip.conf ]; then
-				nano $asteriskDir/sip.conf
-				read -p "Veuillez taper le numéro que l'utilisateur : " 
-				noUser=$?
+				if [ -f "$asteriskDir"/sip.conf ]; then
+				nano "$asteriskDir"/sip.conf
+				read -p "Veuillez taper le numéro que l'utilisateur : " noUser
+				#noUser=$?
+				else
+				echo "il y a un problème : $asteriskDir/sip.conf"
 				fi
 				
 				customPassword "suptech" $noUser
