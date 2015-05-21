@@ -8,7 +8,7 @@ echo -n "Veuillez entrer l'host de la machine distante sur laquelle se connecter
 read hostAddress
 
 ping -c2 $hostAddress
-pingTest = $?
+$pingTest = $?
 
 while [ $pingTest -ne 0 ];
 do

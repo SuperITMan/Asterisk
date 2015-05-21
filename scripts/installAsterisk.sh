@@ -67,7 +67,7 @@ EOF
 			read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 			
 		else 
-			apt-get update -q && apt-get upgrade -y
+			apt-get -q update -q && apt-get upgrade -y
 			echo "Installation d'Asterisk"
 			apt-get -q install asterisk -y
 			echo "Installation d'Asterisk : fait!"
