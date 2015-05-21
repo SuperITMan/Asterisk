@@ -24,7 +24,7 @@ Veuillez choisir votre option
 
 EOF
 
-	read -n1 -s
+	read -n1 -s choice1
 	case $choice1 in
 	
 		#Ajout d'un utilisateur
@@ -50,7 +50,7 @@ Veuillez choisir le profil de l'utilisateur à ajouter
 --------------------------------------------------------------
 
 EOF
-			read -n1 profileChoice
+			read -n1 -s profileChoice
 			case $profileChoice in
 			#Profil commercial
 			"1") 

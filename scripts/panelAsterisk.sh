@@ -19,6 +19,7 @@ wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/reinst
 wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confUser.sh -O confUser.sh
 
 #Attribution des droits nécessaires à l'exécution des scripts
+chmod +x installAsterisk.sh
 chmod +x reinstallAsterisk.sh
 chmod +x confIax.sh
 chmod +x confSIP.sh
