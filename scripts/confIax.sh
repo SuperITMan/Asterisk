@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #Script permettant la configuration du fichier iax.conf
 
 
@@ -8,9 +8,9 @@ echo -n "Veuillez entrer l'host de la machine distante sur laquelle se connecter
 read hostAddress
 
 ping -c2 $hostAddress
-$pingTest = $?
+pingTest=$?
 
-while [ $pingTest -ne 0 ];
+while $pingTest -ne 0 ;
 do
 	echo "L'adresse indiquée est erronée."
 	echo -n "Veuillez entrer l'host de la machine distante sur laquelle se connecter : "

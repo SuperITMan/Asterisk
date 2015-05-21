@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Script permettant la configuration du fichier iax.conf
 # 
 
