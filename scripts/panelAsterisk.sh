@@ -59,6 +59,7 @@ EOF
 	
 	#Installation d'Asterisk
 	"1")
+		echo "Vérification de votre connexion internet"
 		ping -q -c3 8.8.8.8
 		pingTest=$?
 		if [ $pingTest -ne 0 ]
@@ -69,15 +70,18 @@ EOF
 			
 		elif [-d /etc/asterisk ]
 		then
+			echo "Vérification de votre connexion internet : fait!"
 			echo "Asterisk est deja installe sur cet ordinateur."
 			echo "Veuillez choisir l'option \"Reinstallation d'Asterisk\"."
 			read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 		else 		
+			echo "Vérification de votre connexion internet : fait!"
 			./installAsterisk.sh
 		fi ;;
 		
 	#Réinstallation d'Asterisk
 	"2")
+		echo "Vérification de votre connexion internet"
 		ping -q -c3 8.8.8.8
 		pingTest=$?
 		if [ $pingTest -ne 0 ]
@@ -89,8 +93,10 @@ EOF
 			else 
 				if [ -d /etc/asterisk ];
 					then						
+						echo "Vérification de votre connexion internet : fait!"
 						./reinstallAsterisk.sh
 					else
+						echo "Vérification de votre connexion internet : fait!"
 						echo "Il semble qu'Asterisk ne soit pas installe sur cet ordinateur."
 						echo "Veuillez choisir l'option 1 pour une installation d'Asterisk"
 						read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1

@@ -55,7 +55,7 @@ fi
 
 echo "Copie des fichiers de sauvegarde dans $backupDir"
 
-if [ -d "$backupDir" ]
+if [ ! -d "$backupDir" ]
 then 
 	mkdir "$backupDir"
 fi
