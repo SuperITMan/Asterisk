@@ -7,8 +7,8 @@ function customPassword ()
 	isCustomPwd="yyy"
 	while [ $isCustomPwd != "n" ] && [ $isCustomPwd != "N" ] && [ $isCustomPwd != "o" ] && [ $isCustomPwd != "O" ];
 	do
-	echo -n1 "Désirez-vous attribuer un mot de passe personnalisé pour l'utilisateur ? ([O]ui ou [N]on)"
-	read isCustomPwd
+	echo "Désirez-vous attribuer un mot de passe personnalisé pour l'utilisateur ? ([O]ui ou [N]on)"
+	read -n1 isCustomPwd
 	done
 	
 	if [ $isCustomPwd == "O" ] || [ $isCustomPwd == "o" ] 
@@ -18,9 +18,9 @@ function customPassword ()
 		while [ "$pwdUser" != "$pwdUser2" ]
 		do
 			echo "Veuillez entrer le mot de passe : "
-			read -n -s pwdUser
+			read -s pwdUser
 			echo "Veuillez entrer une 2e fois le mot de passe : "
-			read -n -s pwdUser2
+			read -s pwdUser2
 		done
 		
 	else 
