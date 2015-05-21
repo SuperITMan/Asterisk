@@ -21,5 +21,5 @@ done
 
 touch /etc/asterisk/iax.conf
 
-echo "[trunk-remoteAsterisk]\ntype=peer\nusername=remoteuser\nsecret=123456\nhost="$hostAddress"\ntrunk=yes\nqualify=yes\n\n" > /etc/asterisk/iax.conf
-echo "[remoteuser]\ntype=user\nsecret=123456\ncontext=default" > /etc/asterisk/iax.conf
+printf "[trunk-remoteAsterisk]\ntype=peer\nusername=remoteuser\nsecret=123456\nhost="$hostAddress"\ntrunk=yes\nqualify=yes\n\n" >> /etc/asterisk/iax.conf
+printf "[remoteuser]\ntype=user\nsecret=123456\ncontext=default" >> /etc/asterisk/iax.conf
