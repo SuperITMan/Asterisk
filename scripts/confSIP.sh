@@ -2,7 +2,8 @@
 # Script permettant la configuration du fichier iax.conf
 # 
 
-apt-get update -q && apt-get upgrade -y && apt-get install curl -y
+#apt-get update -q && apt-get upgrade -y && 
+apt-get install curl -y
 
 mv /etc/asterisk/sip.conf /etc/asterisk/sip.conf.old
 
@@ -17,14 +18,14 @@ if[ $isNat == "O" || $isNat == "o" ]; then $isNat="yes"
 else $isNat = "no"
 fi
 
-;result = ""
-;while [ $result -ne 0 ]
-;do
-;echo -n "Veuillez : "
-;read externip
-;ping -q -c5 $externIp > /dev/null
-;$result = $?
-;done
+#result = ""
+#while [ $result -ne 0 ]
+#do
+#echo -n "Veuillez : "
+#read externip
+#ping -q -c5 $externIp > /dev/null
+#$result = $?
+#done
 
 externip = curl ident.me
 
