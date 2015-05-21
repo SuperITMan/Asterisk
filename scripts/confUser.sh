@@ -33,7 +33,7 @@ while :
 	clear
 cat<<EOF
 ==============================================================
-			   Modification d'un utilisateur                
+               Modification d'un utilisateur                
 ==============================================================
 Veuillez choisir votre option
 
