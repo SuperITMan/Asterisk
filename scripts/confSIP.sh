@@ -14,7 +14,7 @@ echo -n "Le serveur Asterisk se trouve-t-il derrière un NAT ? ([O]ui ou [Non]) :
 read isNat
 done
 
-if [ $isNat == "O" ] || [ $isNat == "o" ]; then $isNat="yes"
+if [ $isNat == "O" ] || [ $isNat == "o" ] then $isNat="yes"
 else $isNat = "no"
 fi
 
