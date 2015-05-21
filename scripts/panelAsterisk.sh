@@ -53,7 +53,7 @@ Veuillez choisir votre option
 
 EOF
 
-	read -n1 choice
+	read -n1 -s choice
 	
 	case "$choice" in
 	

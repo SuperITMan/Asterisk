@@ -2,6 +2,32 @@
 # Script permettant la modification d'utilisateur sur Asterisk
 # 
 
+function customPassword ()
+{
+	isCustomPwd="yyy"
+	while [ $isCustomPwd != "n" ] && [ $isCustomPwd != "N" ] && [ $isCustomPwd != "o" ] && [ $isCustomPwd != "O" ];
+	do
+	echo -n1 "Désirez-vous attribuer un mot de passe personnalisé pour l'utilisateur ? ([O]ui ou [N]on)"
+	read isCustomPwd
+	done
+	
+	if [ $isCustomPwd == "O" ] || [ $isCustomPwd == "o" ] 
+	then 
+		pwdUser="yhj"
+		pwdUser2="hh"
+		while [ "$pwdUser" != "$pwdUser2" ]
+		do
+			echo -n -s "Veuillez entrer le mot de passe : "
+			read pwdUser
+			echo -n -s "Veuillez entrer une 2e fois le mot de passe : "
+			read pwdUser2
+		done
+		
+	else 
+		pwdUser=$1
+	fi
+}
+
 while :
 	do
 	clear
@@ -97,28 +123,3 @@ EOF
 		sleep 1
 		done
 		
-function customPassword ()
-{
-	isCustomPwd="yyy"
-	while [ $isCustomPwd != "n" ] && [ $isCustomPwd != "N" ] && [ $isCustomPwd != "o" ] && [ $isCustomPwd != "O" ];
-	do
-	echo -n1 "Désirez-vous attribuer un mot de passe personnalisé pour l'utilisateur ? ([O]ui ou [N]on)"
-	read isCustomPwd
-	done
-	
-	if [ $isCustomPwd == "O" ] || [ $isCustomPwd == "o" ] 
-	then 
-		pwdUser="yhj"
-		pwdUser2="hh"
-		while [ "$pwdUser" != "$pwdUser2" ]
-		do
-			echo -n -s "Veuillez entrer le mot de passe : "
-			read pwdUser
-			echo -n -s "Veuillez entrer une 2e fois le mot de passe : "
-			read pwdUser2
-		done
-		
-	else 
-		pwdUser=$1
-	fi
-}
