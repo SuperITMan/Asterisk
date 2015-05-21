@@ -17,10 +17,10 @@ function customPassword ()
 		pwdUser2="hh"
 		while [ "$pwdUser" != "$pwdUser2" ]
 		do
-			echo -n -s "Veuillez entrer le mot de passe : "
-			read pwdUser
-			echo -n -s "Veuillez entrer une 2e fois le mot de passe : "
-			read pwdUser2
+			echo "Veuillez entrer le mot de passe : "
+			read -n -s pwdUser
+			echo "Veuillez entrer une 2e fois le mot de passe : "
+			read -n -s pwdUser2
 		done
 		
 	else 
