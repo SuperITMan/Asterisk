@@ -20,7 +20,7 @@ wget https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confUs
 #Attribution des droits nécessaires à l'exécution des scripts
 chmod +x reinstallAsterisk.sh
 chmod +x confIax.sh
-chmod +x conSIP.sh
+chmod +x confSIP.sh
 chmod +x confUser.sh
 
 while :
@@ -67,7 +67,7 @@ EOF
 			read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 			
 		else 
-			apt-get -q update -q && apt-get upgrade -y
+			apt-get -q update && apt-get upgrade -y
 			echo "Installation d'Asterisk"
 			apt-get -q install asterisk -y
 			echo "Installation d'Asterisk : fait!"
@@ -77,6 +77,8 @@ EOF
 			sleep 3
 			echo "Configuration du SIP"
 			./confSIP.sh
+			echo "Configuration du SIP : fait!"
+			sleep 3
 			
 			#Nettoyage après installations
 			echo "Nettoyage de fin d'installation"
@@ -88,7 +90,7 @@ EOF
 		
 	#Réinstallation d'Asterisk
 	"2")
-		ping c2 8.8.8.8
+		ping -c2 8.8.8.8
 		pingTest=$?
 		if [ $pingTest -ne 0 ]
 			then

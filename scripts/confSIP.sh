@@ -7,14 +7,14 @@ apt-get install curl -y
 
 mv /etc/asterisk/sip.conf /etc/asterisk/sip.conf.old
 
-isNat ="yyy"
-while [ $isNat != "n" && $isNat != "N" && $isNat != "o" && $isNat != "O" ]
+isNat="yyy"
+while [ $isNat != "n" ] && [ $isNat != "N" ] && [ $isNat != "o" ] && [ $isNat != "O" ];
 do
 echo -n "Le serveur Asterisk se trouve-t-il derrière un NAT ? ([O]ui ou [Non]) : "
 read isNat
 done
 
-if[ $isNat == "O" || $isNat == "o" ]; then $isNat="yes"
+if [ $isNat == "O" ] || [ $isNat == "o" ]; then $isNat="yes"
 else $isNat = "no"
 fi
 
