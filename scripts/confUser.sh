@@ -54,8 +54,8 @@ function checkNoUser ()
 function addUser ()
 {
 	sorryMessage
-	echo "Veuillez lire le fichier de config ci-apres et noter le numero que devra porter le nouveau $1. <$2XX> (Exemple : 1 ou 2 ou 11 ou 23 ou ...)"
-	echo "Si un numero est libre (par ex : $201 pris, $203 pris mais $202 non pris), noter ce numero comme etant le no de l'utilisateur"
+	echo "Veuillez lire le fichier de config ci-apres et noter le numero que devra porter le $1. <$2XX> (Exemple : 1 ou 2 ou 11 ou 23 ou ...)"
+	echo "Si un numero est libre (par ex : ""$2""01 pris, ""$2""03 pris mais ""$2""02 non pris), noter ce numero comme etant le no de l'utilisateur"
 	echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"n\""
 	
 	if [ -f "$asteriskDir"/sip.conf ]; then
@@ -74,7 +74,8 @@ function editUser ()
 	sorryMessage
 	echo "Veuillez modifier les informations concernant l'utilisateur de votre choix dans le fichier de configuration."
 	echo "Pensez à chercher [$1X] pour trouver l'utilisateur a modifier."
-	echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"y\" pour sauvergader vos modifications."
+	echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"y\" pour sauvegarder vos modifications."
+	read -p "Appuyez sur n'importe quelle touche pour ouvrir le fichier..." -n1
 	
 	if [ -f "$asteriskDir"/sip.conf ]; then
 	nano "$asteriskDir"/sip.conf
@@ -83,7 +84,6 @@ function editUser ()
 	asterisk -rx "reload"
 	echo "Vos modifications ont ete effectuees."
 	read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
-	break
 }
 
 function deleteUser ()
@@ -92,7 +92,8 @@ function deleteUser ()
 	echo "Veuillez supprimer les informations concernant l'utilisateur de votre choix dans le fichier de configuration."
 	echo "Pensez à chercher [$1X] pour trouver l'utilisateur a supprimer."
 	echo "Pour supprimer l'utilisateur, vous devez tout ce qui se trouve en dessous de [$1X] jusqu'a la \"[\" suivante."
-	echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"y\" pour sauvergader vos modifications."
+	echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"y\" pour sauvegarder vos modifications."
+	read -p "Appuyez sur n'importe quelle touche pour ouvrir le fichier..." -n1
 	
 	if [ -f "$asteriskDir"/sip.conf ]; then
 	nano "$asteriskDir"/sip.conf
@@ -101,7 +102,6 @@ function deleteUser ()
 	asterisk -rx "reload"
 	echo "Vos modifications ont ete effectuees."
 	read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
-	break
 }
 #------------------------------------------------End of personal functions------------------------------------------------#
 
@@ -235,14 +235,17 @@ EOF
 			#Profil commercial
 			"1")
 				editUser "com"
+				break
 			;;
 			#Profil installateur
 			"2")
 				editUser "inst"
+				break
 			;;
 			#Profil support technique
 			"3")
 				editUser "suptech"
+				break
 			;;
 			
 			"Q")
@@ -286,14 +289,17 @@ EOF
 			#Profil commercial
 			"1")
 				deleteUser "com"
+				break
 			;;
 			#Profil installateur
 			"2")
 				deleteUser "inst"
+				break
 			;;
 			#Profil support technique
 			"3")
 				deleteUser "suptech"
+				break
 			;;
 			
 			"Q")
