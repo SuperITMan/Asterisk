@@ -92,5 +92,10 @@ rmdir "$tempBackupDir"
 echo -ne "Suppression des fichiers temporaires ... : ""$VERT""fait.""$NORMAL""\r"
 echo ""
 
+echo -ne "Enregistrement des données au sein d'Asterisk ... :\r"
+asterisk -rx "reload"
+echo -ne "Enregistrement des données au sein d'Asterisk ... : ""$VERT""fait.""$NORMAL""\r"
+echo ""
+
 read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 

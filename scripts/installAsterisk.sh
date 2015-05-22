@@ -49,6 +49,12 @@ echo -ne "Nettoyage de fin d'installation ... :\r"
 apt-get -q=3 autoclean
 apt-get -q=3 autoremove
 echo -ne "Nettoyage de fin d'installation ... : ""$VERT""fait.""$NORMAL""\r"
+
+echo -ne "Enregistrement des données au sein d'Asterisk ... :\r"
+asterisk -rx "reload"
+echo -ne "Enregistrement des données au sein d'Asterisk ... : ""$VERT""fait.""$NORMAL""\r"
+echo ""
+
 echo "Installation terminee!"
 read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 echo ""
