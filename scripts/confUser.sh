@@ -132,7 +132,7 @@ EOF
 	
 		#Ajout d'un utilisateur
 		"1")
-			while true;
+			while :
 			do
 			clear
 cat<<EOF
@@ -204,10 +204,11 @@ EOF
 			
 			esac
 			sleep 1
-			done;;
+			done
+		;;
 
 		#Modification d'un utilisateur
-		"2") break;;
+		"2")
 			while :
 			do
 			clear
@@ -254,11 +255,12 @@ EOF
 			
 			esac 
 			sleep 1
-			done ;;
+			done 
+		;;
 		
 		#Suppression d'un utilisateur
-		"3") break;;
-			while true;
+		"3")
+			while :
 			do
 			clear
 cat<<EOF
