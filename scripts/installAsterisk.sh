@@ -1,32 +1,45 @@
 #!/bin/bash
 #Script permettant l'installation d'Asterisk
+VERT="\\033[1;32m"
+ROUGE="\\033[1;31m"
+NORMAL="\\033[0;39m"
 
-echo "Mise a jour du système"
+echo -ne "Mise a jour du système ... :\r"
 apt-get -q=3 update && apt-get -q=3 upgrade
-echo "Mise a jour du systeme : fait!"
+echo -ne "Mise a jour du systeme : ""$VERT""fait!""$NORMAL""\r"
 
-echo "Installation d'Asterisk"
+echo ""
+
+echo -ne "Installation d'Asterisk ... :\r"
 apt-get -q=3 install asterisk
-echo "Installation d'Asterisk : fait!"
+echo -ne "Installation d'Asterisk ... : fait!\r"
 
-echo "Configuration de l'IAX"
+echo ""
+
+echo -ne "Configuration de l'IAX sur la machine hote ... :\r"
 ./confIax.sh
-echo "Configuration de l'IAX : fait!"
+echo -ne "Configuration de l'IAX sur la machine hote ... : fait!\r"
 sleep 2
 
-echo "Configuration du SIP"
+echo ""
+
+echo -ne "Configuration du SIP ... :\r"
 ./confSIP.sh
-echo "Configuration du SIP : fait!"
+echo -ne "Configuration du SIP ... : fait\r"
 sleep 2
 
-echo "Configuration du DialPlan"
+echo ""
+
+echo -ne "Configuration du DialPlan ... :\r"
 ./confExtensions.sh
-echo "Configuration du DialPlan : fait!"
+echo -ne "Configuration du DialPlan ... : fait!\r"
 sleep 2
 
-echo "Configuration du VoiceMail"
+echo ""
+
+echo -ne "Configuration du VoiceMail\r"
 ./confVoiceMail.sh
-echo "Configuration du VoiceMail : fait!"
+echo -ne "Configuration du VoiceMail : fait!\r"
 sleep 2
 
 #Nettoyage après installations

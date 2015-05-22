@@ -10,13 +10,13 @@ fi
 echo -n "Veuillez entrer l'host de la machine distante sur laquelle se connecter : "
 read hostAddress
 
-echo "Verification de l'host donne"
+echo -ne "Verification de la connexion a l'host donne ... :\r"
 ping -q -c2 $hostAddress
 pingTest=$?
 
 while [ $pingTest -ne 0 ];
 do
-	echo "Verification de l'host donne : erreur!"
+	echo -ne "Verification de l'host donne ... : erreur!\r"
 	echo "L'adresse indiquee est erronee."
 	echo -n "Veuillez entrer l'host de la machine distante sur laquelle se connecter : "
 	read hostAddress
@@ -24,7 +24,7 @@ do
 	pingTest=$?
 done
 
-echo "Verification de l'host donne : fait!"
+echo -ne "Verification de l'host donne ... : fait!\r"
 
 touch "$iaxDir"
 
