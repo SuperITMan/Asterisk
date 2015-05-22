@@ -12,7 +12,10 @@ sleep 2
 
 #Sauvegarde des fichiers de confIax
 echo "Sauvegarde des fichiers de configuration dans $tempBackupDir"
+
+if [ ! -d "$tempBackupDir" ]; then
 mkdir "$tempBackupDir"
+fi
 
 cp "$asteriskDir"/sip.conf "$tempBackupDir"/sip.conf
 cp "$asteriskDir"/iax.conf "$tempBackupDir"/iax.conf
