@@ -2,6 +2,10 @@
 # Script permettant l'installation d'Asterisk sur un serveur Debian nu
 # 
 
+VERT="\\033[1;32m"
+ROUGE="\\033[1;31m"
+NORMAL="\\033[0;39m"
+
 asteriskDir="/etc/asterisk"
 
 #apt-get update -q && apt-get upgrade -y
@@ -101,33 +105,36 @@ EOF
 	
 	#Installation d'Asterisk
 	"1")
-		echo "Vérification de votre connexion internet"
+		echo -ne "Vérification de votre connexion internet ... :\r"
 		ping -q -c3 8.8.8.8
 		pingTest=$?
 		if [ $pingTest -ne 0 ]
 		then
+			echo -ne "Vérification de votre connexion internet ... : ""$ROUGE""erreur.""$NORMAL""\r"
 			echo "Il semble que vous ne soyez pas connecte a internet."
 			echo "Merci de verifier votre connexion et de recommencer ensuite."
 			read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 			
 		elif [ -d /etc/asterisk ]
 		then
-			echo "Vérification de votre connexion internet : fait!"
+			echo -ne "Vérification de votre connexion internet ... : ""$VERT""fait.""$NORMAL""\r"
 			echo "Asterisk est deja installe sur cet ordinateur."
 			echo "Veuillez choisir l'option \"Reinstallation d'Asterisk\"."
 			read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 		else 		
-			echo "Vérification de votre connexion internet : fait!"
+			echo -ne "Vérification de votre connexion internet ... : ""$VERT""fait.""$NORMAL""\r"
+			echo ""
 			./installAsterisk.sh
 		fi ;;
 		
 	#Réinstallation d'Asterisk
 	"2")
-		echo "Vérification de votre connexion internet"
+		echo -ne "Vérification de votre connexion internet ... :\r"
 		ping -q -c3 8.8.8.8
 		pingTest=$?
 		if [ $pingTest -ne 0 ]
 			then
+				echo -ne "Vérification de votre connexion internet ... : ""$ROUGE""erreur.""$NORMAL""\r"
 				echo "Il semble que vous ne soyez pas connecte a internet."
 				echo "Merci de verifier votre connexion et de recommencer ensuite."
 				read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
@@ -135,10 +142,11 @@ EOF
 			else 
 				if [ -d /etc/asterisk ];
 					then						
-						echo "Vérification de votre connexion internet : fait!"
+						echo -ne "Vérification de votre connexion internet ... : ""$VERT""fait.""$NORMAL""\r"
+						echo ""
 						./reinstallAsterisk.sh
 					else
-						echo "Vérification de votre connexion internet : fait!"
+						echo -ne "Vérification de votre connexion internet ... : ""$VERT""fait.""$NORMAL""\r"
 						echo "Il semble qu'Asterisk ne soit pas installe sur cet ordinateur."
 						echo "Veuillez choisir l'option 1 pour une installation d'Asterisk"
 						read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1

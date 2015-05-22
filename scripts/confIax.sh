@@ -1,6 +1,10 @@
 #!/bin/bash
 #Script permettant la configuration du fichier iax.conf
 
+VERT="\\033[1;32m"
+ROUGE="\\033[1;31m"
+NORMAL="\\033[0;39m"
+
 iaxDir="/etc/asterisk/iax.conf"
 
 if [ -f "$iaxDir" ]; then
@@ -16,7 +20,7 @@ pingTest=$?
 
 while [ $pingTest -ne 0 ];
 do
-	echo -ne "Verification de l'host donne ... : erreur!\r"
+	echo -ne "Verification de l'host donne ... : ""$ROUGE""erreur.""$NORMAL""\r"
 	echo "L'adresse indiquee est erronee."
 	echo -n "Veuillez entrer l'host de la machine distante sur laquelle se connecter : "
 	read hostAddress
@@ -24,7 +28,7 @@ do
 	pingTest=$?
 done
 
-echo -ne "Verification de l'host donne ... : fait!\r"
+echo -ne "Verification de l'host donne ... : ""$VERT""fait.""$NORMAL""\r"
 
 touch "$iaxDir"
 
