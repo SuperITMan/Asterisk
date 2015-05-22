@@ -28,7 +28,7 @@ fi
 
 curl -s ident.me > /dev/null
 externIp=$?
-bindport="3060"
+bindport="5060"
 
 touch "$sipDir"
 
