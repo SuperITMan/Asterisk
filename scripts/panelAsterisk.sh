@@ -17,6 +17,7 @@ wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/con
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/installAsterisk.sh -O installAsterisk.sh
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/reinstallAsterisk.sh -O reinstallAsterisk.sh
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confUser.sh -O confUser.sh
+wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confExtensions.sh -O confExtensions.sh
 
 #Attribution des droits nécessaires à l'exécution des scripts
 chmod +x installAsterisk.sh
@@ -24,6 +25,7 @@ chmod +x reinstallAsterisk.sh
 chmod +x confIax.sh
 chmod +x confSIP.sh
 chmod +x confUser.sh
+chmod +x confExtensions.sh
 
 while :
 do

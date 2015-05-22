@@ -15,6 +15,9 @@ echo "Configuration du SIP"
 ./confSIP.sh
 echo "Configuration du SIP : fait!"
 sleep 2
+echo "Configuration du DialPlan"
+./confExtensions.sh
+echo "Configuration du DialPlan : fait!"
 
 #Nettoyage après installations
 echo "Nettoyage de fin d'installation"

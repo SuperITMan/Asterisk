@@ -42,7 +42,7 @@ if [ "$newInstall" == "O" ] || [ "$newInstall" == "o" ]
 		echo "Reinstallation d'Asterisk"
 		apt-get -q=3 install asterisk -y
 		echo "Reinstallation d'Asterisk : fait!"
-		sleep 3
+		sleep 2
 
 		echo "Restauration des fichiers de configuration"
 		cp "$tempBackupDir"/sip.conf "$asteriskDir"/sip.conf
@@ -64,7 +64,7 @@ cp "$tempBackupDir"/sip.conf "$backupDir"/sip.conf
 cp "$tempBackupDir"/iax.conf "$backupDir"/iax.conf
 cp "$tempBackupDir"/voicemail.conf "$backupDir"/voicemail.conf
 cp "$tempBackupDir"/extensions.conf "$backupDir"/extensions.conf
-echo "Copie des fichiers de sauvegarde dans " "$backupDir" " : fait!"
+echo "Copie des fichiers de sauvegarde dans $backupDir : fait!"
 
 echo "Suppression des fichiers temporaires"
 rm "$tempBackupDir"/sip.conf
