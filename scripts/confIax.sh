@@ -29,6 +29,7 @@ do
 done
 
 echo -ne "Verification de l'host donne ... : ""$VERT""fait.""$NORMAL""\r"
+echo ""
 
 touch "$iaxDir"
 
