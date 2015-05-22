@@ -8,7 +8,8 @@ asteriskDir="/etc/asterisk"
 function sorryMessage ()
 {
 	echo "-----------------------------------------------------"
-	echo "L'application etant encore dans sa version beta, vous devez encore realiser certaines taches a la main. L'application sera mise a jour prochainement."
+	echo "L'application etant encore dans sa version beta, vous devez encore realiser certaines taches a la main."
+	echo "L'application sera mise a jour prochainement."
 	echo "-----------------------------------------------------"
 }
 

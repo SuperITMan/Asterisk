@@ -12,6 +12,7 @@ asteriskDir="/etc/asterisk"
 cd /tmp
 
 #Téléchargement des scripts sur github
+echo "Téléchargement des scripts pour le fonctionnement du panel."
 echo -ne '[0%]                                                               >\r'
 sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confSIP.sh -O confSIP.sh
@@ -54,7 +55,8 @@ function sorryMessage ()
 function editConfFiles ()
 {
 	echo "-----------------------------------------------------"
-	echo "L'application etant encore dans sa version beta, vous devez encore realiser certaines taches a la main. L'application sera mise a jour prochainement."
+	echo "L'application etant encore dans sa version beta, vous devez encore realiser certaines taches a la main."
+	echo "L'application sera mise a jour prochainement."
 	echo "-----------------------------------------------------"
 	
 	echo "Veuillez modifier les informations désirées dans le fichier de configuration."
