@@ -7,7 +7,9 @@ asteriskDir="/etc/asterisk"
 #---------------------------------------------------Personal functions----------------------------------------------------#
 function sorryMessage ()
 {
-	echo "<-- L'application étant encore dans sa premiere version, vous devez encore realiser certaines taches. L'application sera mise a jour prochainement. -->"
+	echo "-----------------------------------------------------"
+	echo "L'application etant encore dans sa version beta, vous devez encore realiser certaines taches a la main. L'application sera mise a jour prochainement."
+	echo "-----------------------------------------------------"
 }
 
 function customPassword ()

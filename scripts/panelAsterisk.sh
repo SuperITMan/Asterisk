@@ -29,6 +29,30 @@ chmod +x confUser.sh
 chmod +x confExtensions.sh
 chmod +x confVoiceMail.sh
 
+#Fonctions
+function sorryMessage ()
+{
+	echo "<-- L'application étant encore dans sa premiere version, vous devez encore realiser certaines taches. L'application sera mise a jour prochainement. -->"
+}
+
+function editConfFiles ()
+{
+	echo "-----------------------------------------------------"
+	echo "L'application etant encore dans sa version beta, vous devez encore realiser certaines taches a la main. L'application sera mise a jour prochainement."
+	echo "-----------------------------------------------------"
+	
+	echo "Veuillez modifier les informations désirées dans le fichier de configuration."
+	echo "Pour quitter la lecture/modification du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"y\" pour sauvegarder vos modifications."
+	
+	if [ -f "$asteriskDir"/"$1".conf ]; then
+		nano "$asteriskDir"/"$1".conf
+	fi
+	
+	asterisk -rx "reload"
+	echo "Vos modifications ont ete effectuees."
+	read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
+}
+
 while :
 do
 	clear
@@ -110,6 +134,18 @@ EOF
 	# Modification d'un utilisateur
 	"3")
 		./confUser.sh
+	;;
+	
+	"4")
+		editConfFiles "extensions"
+	;;
+	
+	"5")
+		editConfFiles "voicemail"
+	;;
+	
+	"6")
+		editConfFiles "iax"
 	;;
 	
 	"Q")
