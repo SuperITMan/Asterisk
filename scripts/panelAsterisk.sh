@@ -18,6 +18,7 @@ wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/ins
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/reinstallAsterisk.sh -O reinstallAsterisk.sh
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confUser.sh -O confUser.sh
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confExtensions.sh -O confExtensions.sh
+wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confVoiceMail.sh -O confVoiceMail.sh
 
 #Attribution des droits nécessaires à l'exécution des scripts
 chmod +x installAsterisk.sh
@@ -26,6 +27,7 @@ chmod +x confIax.sh
 chmod +x confSIP.sh
 chmod +x confUser.sh
 chmod +x confExtensions.sh
+chmod +x confVoiceMail.sh
 
 while :
 do
@@ -70,7 +72,7 @@ EOF
 			echo "Merci de verifier votre connexion et de recommencer ensuite."
 			read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1
 			
-		elif [-d /etc/asterisk ]
+		elif [ -d /etc/asterisk ]
 		then
 			echo "Vérification de votre connexion internet : fait!"
 			echo "Asterisk est deja installe sur cet ordinateur."
