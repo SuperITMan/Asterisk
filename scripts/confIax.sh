@@ -1,8 +1,11 @@
 #!/bin/bash
 #Script permettant la configuration du fichier iax.conf
 
+iaxDir="/etc/asterisk/iax.conf"
 
-mv /etc/asterisk/iax.conf /etc/asterisk/iax.conf.old
+if [ -f "$iaxDir" ]; then
+mv "$iaxDir" "$iaxDir".old
+fi
 
 echo -n "Veuillez entrer l'host de la machine distante sur laquelle se connecter : "
 read hostAddress
@@ -23,7 +26,7 @@ done
 
 echo "Verification de l'host donne : fait!"
 
-touch /etc/asterisk/iax.conf
+touch "$iaxDir"
 
-printf "[trunk-remoteAsterisk]\ntype=peer\nusername=remoteuser\nsecret=123456\nhost="$hostAddress"\ntrunk=yes\nqualify=yes\n\n" >> /etc/asterisk/iax.conf
-printf "[remoteuser]\ntype=user\nsecret=123456\ncontext=default" >> /etc/asterisk/iax.conf
+printf "[trunk-remoteAsterisk]\ntype=peer\nusername=remoteuser\nsecret=123456\nhost="$hostAddress"\ntrunk=yes\nqualify=yes\n\n" >> "$iaxDir"
+printf "[remoteuser]\ntype=user\nsecret=123456\ncontext=default" >> "$iaxDir"
