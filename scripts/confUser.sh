@@ -208,7 +208,7 @@ EOF
 
 		#Modification d'un utilisateur
 		"2") break;;
-			while true;
+			while :
 			do
 			clear
 cat<<EOF
