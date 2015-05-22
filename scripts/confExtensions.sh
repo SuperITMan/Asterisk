@@ -2,6 +2,10 @@
 # Script permettant la configuration du dialplan d'Asterisk
 # 
 
+VERT="\\033[1;32m"
+ROUGE="\\033[1;31m"
+NORMAL="\\033[0;39m"
+
 extensionsDir="/etc/asterisk/extensions.conf"
 
 if [ -f "$extensionsDir" ]; then
@@ -9,23 +13,23 @@ mv "$extensionsDir" "$extensionsDir".old
 fi
 
 echo -n "Veuillez entrer l'host de la machine distante sur laquelle se connecter : "
-read hostAddress
+read ipAddress
 
-echo "Verification de l'host donne"
-ping -q -c2 $hostAddress
+echo -ne "Verification de la connexion a l'host donne ... :\r"
+ping -q -c2 $ipAddress
 pingTest=$?
 
 while [ $pingTest -ne 0 ];
 do
-	echo "Verification de l'host donne : erreur!"
+	echo -ne "Verification de l'host donne ... : ""$ROUGE""erreur.""$NORMAL""\r"
 	echo "L'adresse indiquee est erronee."
 	echo -n "Veuillez entrer l'host de la machine distante sur laquelle se connecter : "
-	read hostAddress
-	ping -q -c2 $hostAddress
+	read ipAddress
+	ping -q -c2 $ipAddress
 	pingTest=$?
 done
 
-echo "Verification de l'host donne : fait!"
+echo -ne "Verification de l'host donne ... : ""$VERT""fait.""$NORMAL""\r"
 
 touch "$extensionsDir"
 
