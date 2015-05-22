@@ -5,12 +5,13 @@ asteriskDir="/etc/asterisk"
 backupDir="/etc/asterisk/backupConf"
 tempBackupDir="/tmp/backupAsterisk"
 
+echo "Arret du service Asterisk"
 /etc/init.d/asterisk stop
+echo "Arret du service Asterisk : fait!"
 sleep 2
 
 #Sauvegarde des fichiers de confIax
 echo "Sauvegarde des fichiers de configuration dans $tempBackupDir"
-sleep 2
 mkdir "$tempBackupDir"
 
 cp "$asteriskDir"/sip.conf "$tempBackupDir"/sip.conf
@@ -19,6 +20,7 @@ cp "$asteriskDir"/voicemail.conf "$tempBackupDir"/voicemail.conf
 cp "$asteriskDir"/extensions.conf "$tempBackupDir"/extensions.conf
 
 echo "Sauvegarde des fichiers de configuration dans $tempBackupDir : fait!"
+sleep 2
 echo "Desinstallation d'Asterisk"
 apt-get -q=3 remove --purge asterisk -y
 echo "Desinstallation d'Asterisk : fait!"
@@ -71,6 +73,7 @@ rm "$tempBackupDir"/sip.conf
 rm "$tempBackupDir"/iax.conf
 rm "$tempBackupDir"/voicemail.conf
 rm "$tempBackupDir"/extensions.conf
+rmdir "$tempBackupDir"
 echo "Suppression des fichiers temporaires : fait!"
 
 read -p "Appuyez sur n'importe quelle touche pour continuer..." -n1

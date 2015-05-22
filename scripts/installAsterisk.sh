@@ -4,20 +4,30 @@
 echo "Mise a jour du système"
 apt-get -q=3 update && apt-get -q=3 upgrade
 echo "Mise a jour du systeme : fait!"
+
 echo "Installation d'Asterisk"
 apt-get -q=3 install asterisk
 echo "Installation d'Asterisk : fait!"
+
 echo "Configuration de l'IAX"
 ./confIax.sh
 echo "Configuration de l'IAX : fait!"
 sleep 2
+
 echo "Configuration du SIP"
 ./confSIP.sh
 echo "Configuration du SIP : fait!"
 sleep 2
+
 echo "Configuration du DialPlan"
 ./confExtensions.sh
 echo "Configuration du DialPlan : fait!"
+sleep 2
+
+echo "Configuration du VoiceMail"
+./confVoiceMail.sh
+echo "Configuration du VoiceMail : fait!"
+sleep 2
 
 #Nettoyage après installations
 echo "Nettoyage de fin d'installation"
