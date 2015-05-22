@@ -2,7 +2,7 @@
 # Script permettant l'installation d'Asterisk sur un serveur Debian nu
 # 
 
-#asteriskDir = "/etc/asterisk"
+asteriskDir="/etc/asterisk"
 
 #apt-get update -q && apt-get upgrade -y
 #apt-get install asterisk -y
@@ -12,13 +12,29 @@
 cd /tmp
 
 #Téléchargement des scripts sur github
+echo -ne '[0%]                                                               >\r'
+sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confSIP.sh -O confSIP.sh
+echo -ne '[14%]#########                                                      >\r'
+sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confIax.sh -O confIax.sh
+echo -ne '[28%]##################                                             >\r'
+sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/installAsterisk.sh -O installAsterisk.sh
+echo -ne '[43%]###########################                                    >\r'
+sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/reinstallAsterisk.sh -O reinstallAsterisk.sh
+echo -ne '[58%]####################################                           >\r'
+sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confUser.sh -O confUser.sh
+echo -ne '[73%]#############################################                  >\r'
+sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confExtensions.sh -O confExtensions.sh
+echo -ne '[87%]######################################################         >\r'
+sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confVoiceMail.sh -O confVoiceMail.sh
+echo -ne '[100%]###############################################################>\r'
+sleep 1
 
 #Attribution des droits nécessaires à l'exécution des scripts
 chmod +x installAsterisk.sh
@@ -43,6 +59,7 @@ function editConfFiles ()
 	
 	echo "Veuillez modifier les informations désirées dans le fichier de configuration."
 	echo "Pour quitter la lecture/modification du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"y\" pour sauvegarder vos modifications."
+	read -p "Appuyez sur n'importe quelle touche pour ouvrir le fichier..." -n1
 	
 	if [ -f "$asteriskDir"/"$1".conf ]; then
 		nano "$asteriskDir"/"$1".conf
