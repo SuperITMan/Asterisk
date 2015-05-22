@@ -50,6 +50,12 @@ printf "[suptechs](general)\ntype=friend\nhasvoicemail=yes\nvmsecret=1234\nquali
 #Fin des profil
 printf "\n-----------------\n\n" >> "$sipDir"
 
+#Config du directeur
+printf "[directeur](general)\ntype=friend\nhasvoicemail=yes\nvmsecret=1234\nqualify=yes\nhost=dynamic\ncontext=directeur\nlanguage=fr\nusername=directeur\ncallerid=""Directeur"" <101>\nfullname=""Directeur""\nsecret=directeur)\n\n" >> "$sipDir"
+
+#Config de la secrétaire
+printf "[secretaire](general)\ntype=friend\nhasvoicemail=yes\nvmsecret=1234\nqualify=yes\nhost=dynamic\ncontext=secretaire\nlanguage=fr\nusername=secretaire\ncallerid=""Secretaire"" <101>\nfullname=""Secretaire""\nsecret=secretaire)\n\n" >> "$sipDir"
+
 #Config 3 commerciaux par défaut
 printf "[com1](coms)\nusername=com1\ncallerid=""Commercial 1"" <401>\nfullname=""Commercial 1""\nsecret=com1\n\n" >> "$sipDir"
 printf "[com2](coms)\nusername=com2\ncallerid=""Commercial 2"" <402>\nfullname=""Commercial 2""\nsecret=com2\n\n" >> "$sipDir"
