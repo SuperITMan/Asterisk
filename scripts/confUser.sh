@@ -66,6 +66,26 @@ function addUser ()
 	read -p "Veuillez taper le numero que l'utilisateur : " noUser
 	fi
 	
+	checkNoUser $noUser
+	
+	echo "Veuillez modifier le fichier de config ci-apres et ajouter les lignes ci-dessous sous [$4]."
+	echo "================================================================"
+	echo ";$5 $noUser"
+	echo ";Dial $203 to call $5 $noUser, if not available: Voicemail"
+	echo "exten => $2$idUserCall,1,Dial(, 15)"
+	echo "same => n,VoiceMail($2$idUserCall@site2)"
+	echo "same => n,Hangup()"
+	echo "================================================================"
+	echo "Il vous est conseillé de copier ces lignes sur votre ordinateur pour les coller par la suite."
+	echo "Pour quitter la modification du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"y\" pour confirmer."
+	
+	if [ -f "$asteriskDir"/extensions.conf ]; then
+	nano "$asteriskDir"/extensions.conf
+	echo "Vos modifications ont été sauvegardées"
+	fi
+	
+	printf "\n$2$idUserCall => 1234,$3$noUser" >> "$asteriskDir"/voicemail.conf
+
 	customPassword "$3" $noUser
 	echo "Mot de passe utilisateur : "$pwdUser
 	
@@ -160,7 +180,7 @@ EOF
 			case "$profileChoice" in
 			#Profil commercial
 			"1") 
-				addUser "nouveau commercial" "4" "com"
+				addUser "nouveau commercial" "4" "com" "callComs" "Commercial"
 				
 				printf "[com"$noUser"](coms)\nusername=com"$noUser"\ncallerid=""Commercial "$noUser""" <4"$idUserCall">\nfullname=""Commercial "$noUser"""\nsecret="$pwdUser"\n\n" >> /etc/asterisk/sip.conf
 				
