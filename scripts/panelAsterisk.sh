@@ -13,28 +13,28 @@ cd /tmp
 
 #Téléchargement des scripts sur github
 echo "Téléchargement des scripts pour le fonctionnement du panel."
-echo -ne '[0%]                                                               >\r'
+echo -ne '0%  [                                                                      >]\r'
 sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confSIP.sh -O confSIP.sh
-echo -ne '[14%]#########                                                      >\r'
+echo -ne '14% [=========                                                            >]\r'
 sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confIax.sh -O confIax.sh
-echo -ne '[28%]##################                                             >\r'
+echo -ne '28% [==================                                                  >]\r'
 sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/installAsterisk.sh -O installAsterisk.sh
-echo -ne '[43%]###########################                                    >\r'
+echo -ne '43% [============================                                        >]\r'
 sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/reinstallAsterisk.sh -O reinstallAsterisk.sh
-echo -ne '[58%]####################################                           >\r'
+echo -ne '58% [======================================                              >]\r'
 sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confUser.sh -O confUser.sh
-echo -ne '[73%]#############################################                  >\r'
+echo -ne '73% [================================================                    >]\r'
 sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confExtensions.sh -O confExtensions.sh
-echo -ne '[87%]######################################################         >\r'
+echo -ne '87% [==========================================================          >]\r'
 sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Asterisk/master/scripts/confVoiceMail.sh -O confVoiceMail.sh
-echo -ne '[100%]###############################################################>\r'
+echo -ne '100%[====================================================================>]\r'
 sleep 1
 
 #Attribution des droits nécessaires à l'exécution des scripts
