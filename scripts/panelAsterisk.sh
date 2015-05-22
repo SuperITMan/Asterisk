@@ -47,11 +47,6 @@ chmod +x confExtensions.sh
 chmod +x confVoiceMail.sh
 
 #Fonctions
-function sorryMessage ()
-{
-	echo "<-- L'application étant encore dans sa premiere version, vous devez encore realiser certaines taches. L'application sera mise a jour prochainement. -->"
-}
-
 function editConfFiles ()
 {
 	echo "-----------------------------------------------------"
