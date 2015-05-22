@@ -60,6 +60,7 @@ function addUser ()
 	echo "Veuillez lire le fichier de config ci-apres et noter le numero que devra porter le $1. <$2XX> (Exemple : 1 ou 2 ou 11 ou 23 ou ...)"
 	echo "Si un numero est libre (par ex : ""$2""01 pris, ""$2""03 pris mais ""$2""02 non pris), noter ce numero comme etant le no de l'utilisateur"
 	echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"n\""
+	read -p "Appuyez sur n'importe quelle touche pour commencer la lecture du fichier..." -n1
 	
 	if [ -f "$asteriskDir"/sip.conf ]; then
 	nano "$asteriskDir"/sip.conf
@@ -76,15 +77,16 @@ function addUser ()
 	echo "same => n,VoiceMail($2$idUserCall@site2)"
 	echo "same => n,Hangup()"
 	echo "================================================================"
-	echo "Il vous est conseillé de copier ces lignes sur votre ordinateur pour les coller par la suite."
+	echo "Il vous est conseille de copier ces lignes sur votre ordinateur pour les coller par la suite."
 	echo "Pour quitter la modification du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"y\" pour confirmer."
+	read -p "Appuyez sur n'importe quelle touche pour commencer l'edition du fichier..." -n1
 	
 	if [ -f "$asteriskDir"/extensions.conf ]; then
 	nano "$asteriskDir"/extensions.conf
-	echo "Vos modifications ont été sauvegardées"
+	echo "Vos modifications ont ete sauvegardees"
 	fi
 	
-	printf "\n$2$idUserCall => 1234,$3$noUser" >> "$asteriskDir"/voicemail.conf
+	printf "$2$idUserCall => 1234,$3$noUser\n" >> "$asteriskDir"/voicemail.conf
 
 	customPassword "$3" $noUser
 	echo "Mot de passe utilisateur : "$pwdUser
@@ -96,12 +98,42 @@ function editUser ()
 {
 	sorryMessage
 	echo "Veuillez modifier les informations concernant l'utilisateur de votre choix dans le fichier de configuration."
-	echo "Pensez à chercher [$1X] pour trouver l'utilisateur a modifier."
+	echo "Pensez à chercher [$3X] pour trouver l'utilisateur a modifier."
 	echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"y\" pour sauvegarder vos modifications."
 	read -p "Appuyez sur n'importe quelle touche pour ouvrir le fichier..." -n1
 	
 	if [ -f "$asteriskDir"/sip.conf ]; then
 	nano "$asteriskDir"/sip.conf
+	fi
+	
+	echo "Veuillez modifier le fichier de config ci-apres et supprimer les lignes concernant l'utilisateur. Elles ressemblent aux lignes ci-dessous en fonction du numéro de l'utilisateur."
+	echo "================================================================"
+	echo ";$5 XX"
+	echo ";Dial $203 to call $5 XX, if not available: Voicemail"
+	echo "exten => $2XX,1,Dial(, 15)"
+	echo "same => n,VoiceMail($2XX@site2)"
+	echo "same => n,Hangup()"
+	echo "================================================================"
+	echo "Il vous est conseille de copier ces lignes sur votre ordinateur pour les coller par la suite."
+	echo "Pour quitter la modification du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"y\" pour confirmer."
+	read -p "Appuyez sur n'importe quelle touche pour commencer l'edition du fichier..." -n1
+	
+	if [ -f "$asteriskDir"/extensions.conf ]; then
+	nano "$asteriskDir"/extensions.conf
+	echo "Vos modifications ont ete sauvegardees"
+	fi
+	
+	echo "Veuillez modifier le fichier de config ci-apres et modifier la ligne concernant l'utilisateur. Elle ressemble a la ligne ci-dessous en fonction du numero de l'utilisateur."
+	echo "================================================================"
+	echo "$2XX => 1234,$3XX"
+	echo "================================================================"
+	echo "Il vous est conseille de copier ces lignes sur votre ordinateur pour les coller par la suite."
+	echo "Pour quitter la modification du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"y\" pour confirmer."
+	read -p "Appuyez sur n'importe quelle touche pour commencer l'edition du fichier..." -n1
+	
+	if [ -f "$asteriskDir"/voicemail.conf ]; then
+	nano "$asteriskDir"/voicemail.conf
+	echo "Vos modifications ont ete sauvegardees"
 	fi
 	
 	asterisk -rx "reload"
@@ -113,13 +145,43 @@ function deleteUser ()
 {
 	sorryMessage
 	echo "Veuillez supprimer les informations concernant l'utilisateur de votre choix dans le fichier de configuration."
-	echo "Pensez à chercher [$1X] pour trouver l'utilisateur a supprimer."
-	echo "Pour supprimer l'utilisateur, vous devez tout ce qui se trouve en dessous de [$1X] jusqu'a la \"[\" suivante."
+	echo "Pensez à chercher [$3X] pour trouver l'utilisateur a supprimer."
+	echo "Pour supprimer l'utilisateur, vous devez tout ce qui se trouve en dessous de [$3X] jusqu'a la \"[\" suivante."
 	echo "Pour quitter la lecture du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"y\" pour sauvegarder vos modifications."
 	read -p "Appuyez sur n'importe quelle touche pour ouvrir le fichier..." -n1
 	
 	if [ -f "$asteriskDir"/sip.conf ]; then
 	nano "$asteriskDir"/sip.conf
+	fi
+	
+	echo "Veuillez modifier le fichier de config ci-apres et supprimer les lignes concernant l'utilisateur. Elles ressemblent aux lignes ci-dessous en fonction du numero de l'utilisateur."
+	echo "================================================================"
+	echo ";$5 XX"
+	echo ";Dial $203 to call $5 XX, if not available: Voicemail"
+	echo "exten => $2XX,1,Dial(, 15)"
+	echo "same => n,VoiceMail($2XX@site2)"
+	echo "same => n,Hangup()"
+	echo "================================================================"
+	echo "Il vous est conseille de copier ces lignes sur votre ordinateur pour les coller par la suite."
+	echo "Pour quitter la modification du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"y\" pour confirmer."
+	read -p "Appuyez sur n'importe quelle touche pour commencer l'edition du fichier..." -n1
+	
+	if [ -f "$asteriskDir"/extensions.conf ]; then
+	nano "$asteriskDir"/extensions.conf
+	echo "Vos modifications ont ete sauvegardees"
+	fi
+	
+	echo "Veuillez modifier le fichier de config ci-apres et supprimer la ligne concernant l'utilisateur. Elle ressemble a la ligne ci-dessous en fonction du numero de l'utilisateur."
+	echo "================================================================"
+	echo "$2XX => 1234,$3XX"
+	echo "================================================================"
+	echo "Il vous est conseille de copier ces lignes sur votre ordinateur pour les coller par la suite."
+	echo "Pour quitter la modification du fichier, appuyez sur \"Ctrl\" + \"X\" puis, s'il vous est demande s'il faut sauver, taper \"y\" pour confirmer."
+	read -p "Appuyez sur n'importe quelle touche pour commencer l'edition du fichier..." -n1
+	
+	if [ -f "$asteriskDir"/voicemail.conf ]; then
+	nano "$asteriskDir"/voicemail.conf
+	echo "Vos modifications ont ete sauvegardees"
 	fi
 	
 	asterisk -rx "reload"
@@ -193,7 +255,7 @@ EOF
 			
 			#Profil installateur
 			"2") 
-				addUser "nouvel installateur" "5" "inst"
+				addUser "nouvel installateur" "5" "inst" "callInsts" "Installateur"
 				
 				printf "[inst"$noUser"](insts)\nusername=inst"$noUser"\ncallerid=""Installateur "$noUser""" <5"$idUserCall">\nfullname=""Installateur "$noUser"""\nsecret="$pwdUser"\n\n" >> /etc/asterisk/sip.conf
 				
@@ -206,7 +268,7 @@ EOF
 		
 			#Profil support technique
 			"3") 
-				addUser "nouveau support technique" "3" "suptech"
+				addUser "nouveau support technique" "3" "suptech" "callSupTechs" "Support Technique"
 				
 				printf "[suptech"$noUser"](suptechs)\nusername=suptech"$noUser"\ncallerid=""Supp Tech "$noUser""" <3"$idUserCall">\nfullname=""Support Technique "$noUser"""\nsecret="$pwdUser"\n\n" >> /etc/asterisk/sip.conf
 				
@@ -257,17 +319,17 @@ EOF
 			case "$profileChoice" in
 			#Profil commercial
 			"1")
-				editUser "com"
+				editUser "nouveau commercial" "4" "com" "callComs" "Commercial"
 				break
 			;;
 			#Profil installateur
 			"2")
-				editUser "inst"
+				editUser "nouvel installateur" "5" "inst" "callInsts" "Installateur"
 				break
 			;;
 			#Profil support technique
 			"3")
-				editUser "suptech"
+				editUser "nouveau support technique" "3" "suptech" "callSupTechs" "Support Technique"
 				break
 			;;
 			
@@ -311,17 +373,17 @@ EOF
 			case "$profileChoice" in
 			#Profil commercial
 			"1")
-				deleteUser "com"
+				deleteUser "nouveau commercial" "4" "com" "callComs" "Commercial"
 				break
 			;;
 			#Profil installateur
 			"2")
-				deleteUser "inst"
+				deleteUser "nouvel installateur" "5" "inst" "callInsts" "Installateur"
 				break
 			;;
 			#Profil support technique
 			"3")
-				deleteUser "suptech"
+				deleteUser "nouveau support technique" "3" "suptech" "callSupTechs" "Support Technique"
 				break
 			;;
 			
